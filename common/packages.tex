@@ -132,7 +132,8 @@
 \usepackage{threeparttable}      % автоматический подгон ширины подписи таблицы
 
 %%% Общее форматирование
-\usepackage{soulutf8}% Поддержка переносоустойчивых подчёркиваний и зачёркиваний
+%\usepackage{soulutf8}% Поддержка переносоустойчивых подчёркиваний и зачёркиваний
+\usepackage{soul}
 \usepackage{icomma}  % Запятая в десятичных дробях
 
 %%% Оптимизация расстановки переносов и длины последней строки абзаца
@@ -226,3 +227,61 @@
         \tikzset{external/up to date check={diff}}
     \fi
 }{}
+
+
+% пакеты пользователя
+\usepackage{epigraph}
+
+
+% КОМАНДЫ ПОЛЬЗОВАТЕЛЯ
+
+% множества
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\FF}{\mathbb{F}}
+% группы, квазигруппы
+\newcommand{\SSS}{\mathcal{S}}
+\newcommand{\sprop}{\mathcal{S}^{\mathsf{prop}}}
+\newcommand{\QQQ}{Q_1 \times \ldots \times Q_n}
+\newcommand{\GGG}{\mathbb{G}}
+
+% функции и аргументы
+\newcommand{\ff}{\mathcal{F}}
+\newcommand{\gf}{\mathcal{G}}
+\renewcommand{\ss}{\mathbf{s}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\dd}{\partial}
+\newcommand{\loc}{\mathsf{loc}}
+\newcommand{\rec}{\mathsf{rec}}
+
+% команды 
+\newcommand{\proj}{\Pi}
+\newcommand{\inv}{\mathsf{inv}}
+\newcommand{\sample}{\gets^{\mathcal{U}}}
+\newcommand{\Img}{\mathsf{Im}}
+\newcommand{\fib}{\mathsf{Fib}}
+\newcommand{\lucas}{\mathsf{Lucas}}
+\newcommand{\uso}{\mathsf{USO}}
+
+
+% криптография
+\newcommand{\Dom}{\mathbf{Dom}}
+\newcommand{\Keys}{\mathbf{Keys}}
+\newcommand{\Twk}{\mathbf{Twk}}
+\newcommand{\enc}{\mathsf{Enc}}
+\newcommand{\dec}{\mathsf{Dec}}
+\newcommand{\gen}{\mathsf{Gen}}
+\newcommand{\fpe}{\mathsf{FPE}}
+
+\newcommand{\hupf}{\mathsf{HUPF}}
+
+
+% etc commands
+\newcommand{\TODO}[1]{{\color{red}{\textbf{ TODO: #1}}}}
+
+\newtheorem{Algo}{Алгоритм}
+
