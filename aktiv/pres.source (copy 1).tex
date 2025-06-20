@@ -1,0 +1,1060 @@
+%!TEX root = ./pres.tex
+
+\section{Мотивация и основные определения}
+
+\begin{frame}{ \guillemotleft Обычная\guillemotright криптография}
+    В криптографии широко используются различные алгебраические структуры, такие как:
+    \begin{itemize}
+        \item поля: $\FF_q$;
+        \pause
+        \item коммутативные группы: $\FF_q^*$, $\EE(\FF_q)$;
+        \pause
+        \item кольца (коммутативные, ассоциативные, с единицей): $\ZZ$, $\ZZ_n$;
+        \pause
+        \item коды (векторные подпространства над конечными полями), решетки~\footcite{pqcrypto}, ...
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{ \guillemotleft Необычная\guillemotright криптография}
+    При этом в исследовательской литературе предлагаются к рассмотрению и более  \guillemotleft экзотические\guillemotright структуры, например:
+    \begin{itemize}
+        \item модули более общего вида~\footcite{nechaev95};
+        \pause
+        \item \textbf{некоммутативные} группы и алгебры (например, группы кос, алгебры матриц, etc)~\footcite{myasnikov2011non, romankov, moldovyan};
+        \pause
+        \item \textbf{неассоциативные структуры}: квазигруппы, квазигрупповые кольца и т.д~\footcite{glukhov, artamonov18, markov2020nonassociative}.
+    \end{itemize}
+    \pause
+    Именно на последние мы и посмотрим чуть подробнее.
+\end{frame}
+
+
+\begin{frame}{Используемые обозначения}
+    \begin{table}
+        \begin{center}
+            \begin{tabular}{|c|c|}
+                \hline
+                $Q$ &квазигруппа с операцией $\circ$ \\
+                \hline 
+                $k$ & размер множества $Q$, $k = \lvert Q \rvert$, значность логики \\
+                \hline
+                $\EE_k$ & множество $\{0, \ldots, k-1 \}$ (обычно предполагаем $\EE_k = \ZZ_k$) \\
+                \hline
+                $F$ & семейство функций $F \colon Q^n \to Q^n$ \\
+                \hline 
+                $f_i$ & $i$-я функция семейства $F$ \\
+                \hline
+                $n$ & размер семейства \\
+                \hline
+                $Func(Q)$ & множество функций $f \colon Q \to Q$ \\
+                \hline 
+                $Perm(Q)$ & множество подстановок (биекций) на $Q$ \\
+                \hline
+                $Perm(n)$ & множество подстановок (биекций) на $\{1, \ldots, n\}$ \\
+                \hline
+            \end{tabular}
+        \end{center}
+    \end{table}
+\end{frame}
+
+
+\begin{frame}{Квазигруппа}
+    \begin{block}{Квазигруппа}
+        Множество $Q$ с заданной на нём бинарной операцией
+        \[
+          \circ \colon Q \times Q \to Q, 
+        \]
+        со следующим свойством: для любых $a, b \in Q$ существуют единственные $x, y \in Q$, такие что:
+        \[
+          a \circ x = b, \qquad y \circ a = b.
+        \]
+    \end{block}
+
+    \pause
+    Другими словами, операции \textbf{левого} $L_a$ и \textbf{правого} $R_a$ умножения (сдвиги)
+    \begin{gather*}
+        L_a \colon Q \to Q,\, L_a(x) = a \circ x, \\
+        R_a \colon Q \to Q,\, R_a(y) = y \circ a,
+    \end{gather*}
+    являются биекциями на $Q$.
+    
+    \pause 
+    По сути = группа без ассоциативности и единицы, но \textbf{с сокращением} как слева, так и справа.
+\end{frame}
+
+
+\begin{frame}{Несколько примеров}
+    \begin{itemize}
+        \item $Q$~--- любая группа, например $Q = \ZZ_k$, $\circ = +$; $Q = \ZZ_k$, $\circ = -$ (не группа, т.к. $a - (b - c) \ne (a - b) - c$);
+        \pause
+        \item $(G, \cdot)$~--- группа, $\pi$, $\sigma$, $\tau$~--- подстановки на $G$, тогда можно рассмотреть \textbf{изотоп}:
+        \[
+            x \circ y = \tau(\pi(x) \cdot \sigma(y)).
+        \]
+    \end{itemize}
+    \pause 
+    \begin{block}{Лупа}
+        Квазигруппа $Q$ с единичным элементом $e$: 
+        \[
+            e \circ x = x \circ e = x \; \; \forall x \in Q
+        \]
+    \end{block}
+    \pause 
+    \begin{block}{Квазигрупповое кольцо}
+        Пусть $R$~--- ассоциативное коммутативное кольцо с единицей, $Q$~--- квазигруппа, тогда мы можем рассмотреть квазигрупповое кольцо $RQ$:
+        \begin{itemize}
+            \item элементы~--- конечные формальные суммы $\sum_q \alpha_q \cdot q, \quad q \in Q, \; \alpha_q \in R$,
+            \item сумма элементов: $A + B = \sum_q (\alpha_q + \beta_q) \cdot q$,
+            \item произведение элементов: $A \cdot B = \sum_q \gamma_q \cdot q, \quad \gamma_q = \sum_{s,t: s \circ t = q} \alpha_s \beta_t$.
+        \end{itemize}
+     \end{block}
+\end{frame}
+
+
+\begin{frame}{Латинский квадрат}
+    \begin{itemize}
+        \item квадратная таблица размера $k \times k$, заполнена числами от $0$ до $k-1$, каждое число появляется \textbf{только один раз} в каждом столбце и каждой строке таблицы.
+        \pause
+        \item Таблица умножения квазигруппы $Q = \{q_1, \ldots, q_k \}$ (на пересечении $i$-й строки и $j$-го столбца пишем $(q_i \circ q_j) \in Q$) является латинским квадратом.
+        \pause 
+        \item Больше о латинских квадратах с т. зр. комбинаторики см., например,~\footcite{keedwell}.
+    \end{itemize}
+
+    \pause
+    \begin{columns}[T] % gather columns
+        \begin{column}{.48\textwidth}
+            \begin{block}{Пример: латинский квадрат $5 \times 5$}
+                \begin{center}
+                  \[
+                    \begin{bmatrix}
+                        0 & 1 & 2 & 3 & 4 \\
+                        1 & 0 & 3 & 4 & 2 \\
+                        2 & 3 & 4 & 0 & 1 \\
+                        3 & 4 & 1 & 2 & 0 \\
+                        4 & 2 & 0 & 1 & 3 \\
+                    \end{bmatrix}
+                  \]
+                \end{center}
+            \end{block}
+        \end{column}%
+        \hfill%
+        \begin{column}{.48\textwidth}
+            \begin{figure}[h]
+                \centering 
+                \includegraphics[scale = 0.2]{fisher.jpg}
+            \end{figure}
+        \end{column}%
+    \end{columns}
+    
+\end{frame}
+
+
+\begin{frame}{Элементарные преобразования: $E$-преобразование}
+    Пусть $x_1, \ldots, x_k, \ell \in Q$.
+    Определим преобразование $E_{\ell}$~\footcite{markovski2017quasigroup}:
+    \pause 
+    \[
+        E_{\ell}(x_1 \ldots x_k) = y_1 \ldots y_k,
+    \]
+    \pause
+    \[
+        y_1 = \ell \circ x_1, \; y_{i+1} = y_i \circ x_{i+1}.
+    \]
+    \begin{figure}[h]
+        \centering 
+        \includegraphics[width = 0.8\linewidth]{etransform.png}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Элементарные преобразования: $D$-преобразование}
+    \[
+        y_1 = \ell \circ x_1, \; y_{i+1} = y_i \circ x_{i+1}.
+    \]
+    \begin{itemize}
+        \item Даны $y_1, \ldots, y_k, \ell$, как обратить и получить $x_1, \ldots, x_k$?
+        \pause 
+        \item Нужно использовать операцию $\backslash$:
+        \[
+            a \circ b = c \rightarrow b = a \backslash c.
+        \]
+        \pause 
+        \item Обращение:
+        \[
+            x_1 = \ell \backslash y_1, x_{i+1} = y_i \backslash y_{i+1}.
+        \]
+        \pause 
+        \item Обозначим полученное преобразование за $D_{\ell}$, тогда:
+        \[
+            D_{\ell} \left( E_{\ell}(x_1 \ldots x_k) \right) = E_{\ell} \left( D_{\ell} (x_1 \ldots x_k) \right) = (x_1 \ldots x_k).
+        \]
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Элементарные преобразования: итерации $E$-преобразований}
+    \begin{itemize}
+        \item Пусть на $Q$ задано несколько структур квазигруппы: $\circ_1, \ldots, \circ_n$.
+        \pause
+        \item Можем ввести кратное $E$-преобразование:
+        \[
+            E_{\ell_1, \ldots, \ell_n}(x) = E_{\ell_1} \left( \ldots \left( E_{\ell_n} (x) \right) \ldots \right), 
+        \]
+        \pause
+        \item Каждое $E_{\ell_i}$ использует свою операцию $\circ_i$.
+        \pause
+        \item Чтобы  \guillemotleft отменить\guillemotright, нужно применить $D$, но в обратном порядке:
+        \pause
+        \[
+            D_{\ell_1, \ldots, \ell_n}(y) = D_{\ell_n} \left( \ldots \left( D_{\ell_1} (y) \right) \ldots \right).
+        \]
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Некоторые свойства $E$-преобразования}
+    Работы~\footcite{markovski1999quasigroup, bakeva2011some, markovski2017quasigroup}.
+    \begin{itemize}
+        \item Для любых $\alpha = (a_1, \ldots, a_m)$ и $(c_1, \ldots, c_k)$ уравнение 
+        \[
+            E_{\alpha}(x_1 \ldots x_k) = c_1 \ldots c_k
+        \]
+        имеет единственное решение (в силу обратимости $E_{\alpha}$).
+        \pause 
+        \item Отображение $E_a \colon Q \to Q$ задает марковскую цепь: если $X_1 \ldots X_n$~--- случайные независимые величины, распределенные на $Q$, то распределение вероятностей знаков $Y_1 \ldots Y_n = E_a(X_1 \ldots X_n)$ задаются матрицей переходных вероятностей (распределение $Y_m$ зависит от распределения $Y_{m-1}$ и не зависит от $Y_{m-2}, \ldots, Y_1$).
+        \pause 
+        \item Распределение $Y_i$ сходится к равновероятному (для достаточно большого $n$, по свойству марковских цепей).
+        \pause 
+        \item Если применяем кратное $E$-преобразование с кратностью $\ell$, то распределение подстрок длины $\ell$ вида $Y_i Y_{i+1} \ldots Y_{i + \ell - 1}$ сходится к равновероятному (для достаточно большого $n$).
+    \end{itemize}
+\end{frame}
+
+
+% \begin{frame}{Некоторые свойства $E$-преобразования-2}
+%     \begin{itemize}
+%         \item Рассматриваем преобразование $Y_1 \ldots Y_n = E_a(X_1 \ldots X_n)$.
+%         \pause
+%         \item Если все подстроки  в $X$ длины $k$ вида $X_i \ldots X_{i + k - 1}$ распределены равномерно, то в $Y$ равномерно распределены все подстроки длины $k+1$.
+%         \pause 
+%         \item Можно ввести чуть более общее преобразование $G$ ($E$-преобразование является частным случаем с $d=1$; используем $d$ лидеров, сдвигаем по одному лидеру влево):
+%         \begin{gather*}
+%             Y_1 = \ell_1 \circ \left( \ell_2 \circ \ldots \circ \left( \ell_d \circ X_1 \right) \ldots \right), \\
+%             Y_2 = \ell_2 \circ \left( \ell_3 \circ \ldots \circ \left( \ell_d \circ \left( Y_1 \circ X_2 \right) \right) \ldots \right), \\
+%             \ldots \\
+%             Y_d = \ell_d \circ \left( Y_1 \circ \ldots \circ \left( Y_{d-2} \circ \left( Y_{d-1} \circ X_d \right) \right) \ldots \right), \\
+%             \ldots 
+%         \end{gather*}
+%         \pause 
+%         \item Если все подстроки в $X$ длины $k$ вида как указано выше распределены равномерно, то в $Y$ равномерно распределены все подстроки длины $k + d$...
+%         \pause
+%         \item более того, если рассматривать подстроки длины большей, чем $k+d$, то вероятность каждой из них не превосходит $\frac{1}{q^{k+d}}$.
+%     \end{itemize}
+% \end{frame}
+
+
+\begin{frame}{Генераторы ПСЧ на основе $E$-преобразований}
+    \begin{itemize}
+        \item ГПСЧ: растягиваем короткий случайный вектор $seed$ на длинный псевдослучайный вектор-гамму.
+        \pause
+        \item Идея (см.~\footcite{dimitrova2004quasigroup, markovski2005unbiased}): растягиваем короткий элемент $a \in Q$ с помощью итераций $E$-преобразования:
+        \[
+            E_{a} \left( \ldots E_{a} \left( E_{a} \left( a \ldots a \right) \right) \ldots \right).
+        \]
+        \pause
+        \begin{figure}[h]
+            \centering 
+            \includegraphics[width = 0.6\linewidth]{prng.png}
+        \end{figure}
+        \item Свойства предложенного ГПСЧ рассматривались в работах~\footcite{markovski2003quasigroup, markovski2005classification, markovski2005unbiased}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Пример: блочный шифр, основанный на $E$-преобразовании}
+    Работа~\footcite{inru}.
+    \begin{itemize}
+        \item INRU: блочный шифр, состоит из 16 раундов.
+        \pause 
+        \item Использует квазигруппу размера $16 \times 16$:
+        \pause
+        \begin{itemize}
+            \item полиномиально полная (т.е. лежит в классе  \guillemotleft хороших\guillemotright с точки зрения теории сложности),
+            \pause
+            \item не имеет собственных подквазигрупп,
+            \pause
+            \item алгебраическая степень~--- 6.
+        \end{itemize}
+        \pause 
+        \item нелинейная часть: $E$-преобразования с ключом.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{INRU: структура шифра}
+    \begin{columns}[T] % gather columns
+        \begin{column}{.48\textwidth}
+            \begin{itemize}
+                \item $E^{left}$, $E^{right}$~--- левое и правое $E$-преобразования;
+                \item $\mathcal{L}$~--- некоторые линейные преобразования;
+                \item $rk$~--- раундовый ключ.
+            \end{itemize}
+        \end{column}%
+        \hfill%
+        \begin{column}{.48\textwidth}
+            \begin{figure}[h]
+                \centering 
+                \includegraphics[width = 0.75\linewidth]{inru_round.png}
+            \end{figure} 
+        \end{column}%
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}{Другие предложения (кратко)}
+    Основная идея: использовать в качестве нелинейного компонента примитива некоторое квазигрупповое преобразование.
+    \begin{itemize}
+        \item  \guillemotleft Односторонняя функция\guillemotright~\footcite{gligoroski2008edon, gligoroski2009family, EdonR, EdonRprime} и основанные на ней хеш-функции:
+        \begin{equation*}
+            R(a_1 \ldots a_n) = E_{a_1} \left( \ldots E_{a_n}(a_1 \ldots a_n) \ldots \right).
+        \end{equation*}
+        \pause
+        \item Малоресурсная (легковесная/lightweight) хеш-функция GAGE и AEAD-алгоритм InGAGE (см.~\url{http://gageingage.org/}, также~\footcite{otte2019gage, gligoroski2019s}).
+        \pause
+        \item Поточный шифр Edon80~\footcite{edon80}.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Другие предложения (кратко)-2}
+    \begin{itemize}
+        \item Асимметричные криптопримитивы~--- аналоги пост-квантовых схем multivariate cryptography~\footcite{preneel}.
+        \pause
+        \item Основная идея: подобрать такое нелинейное преобразование $\mathcal{P}$, что вычисление $\mathcal{P}$ и $\mathcal{P}^{-1}$ сделать  \guillemotleft легко\guillemotright, а затем  \guillemotleft скрыть\guillemotright структуру $\mathcal{P}$, взяв обратимые линейные преобразования $\mathcal{S}$ и $\mathcal{T}$ и рассмотрев композицию 
+        \[
+            \mathcal{F}(x) = \mathcal{S} \left( \mathcal{P} \left(\mathcal{T}(x) \right) \right).
+        \]
+        \pause 
+        \item В работах~\footcite{gligoroski2008public, gligoroski2008multivariate, chen2010multivariate, gligoroski2011mqq} предлагалось рассматривать в качестве нелинейной компоненты $\mathcal{P}$ композицию $E$-преобразований.
+        \pause 
+        \item В работах~\footcite{mohamed2009algebraic, faugere2015polynomial} предлагаемая система и её модификации были успешно атакованы (решение задачи MinRank с помощью базисов Грёбнера).
+    \end{itemize}
+        
+\end{frame}
+
+
+\begin{frame}{Другие предложения (кратко)-3}
+    \begin{itemize}
+        \item Схемы~--- аналоги протокола Диффи-Хеллмана выработки общего ключа~\footcite{katyshev14, katyshev18}, гомоморфное шифрование~\footcite{gribov2010construction, gribov15, markov20}: используются ППС/ПЛС-группоиды, луповые кольца над медиальными квазигруппами (изотопы абелевых групп с коммутирующими автоморфизмами).
+        \pause
+        \item Приложения в теории кодирования~\footcite{nechaev98, nechaev04, couselo2004loop, markov12, markov2020nonassociative}...
+        \pause 
+        \item и многое другое~\footcite{glukhov, artamonov18, shcherbacov2017elements}.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Как задать квазигруппу?}
+    \begin{itemize}
+        \item В общем случае квазигруппа над множеством $Q$ задается таблицей умножения размера $\lvert Q \rvert \times \lvert Q \rvert$; это много.
+        \pause 
+        \item Случайная генерация (поиск + отсев) квазигрупп из некоторого узкого класса~\footcite{gligoroski2008public, chen2010multivariate}.
+        \pause 
+        \item Итеративное построение из более \guillemotleft маленьких\guillemotright (конструкции наподобие прямых произведений)~\footcite{gribovphd, EdonRprime}.
+        \pause 
+        \item Изотопы некоторых \guillemotleft хорошо изученных\guillemotright групп (например, изотоп группы точек эллиптической кривой~\footcite{DH16}, модульное вычитание~\footcite{snavsel2009hash}).
+        \pause 
+        \item Функциональное задание квазигруппы: поговорим о нём подробнее.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Функциональное задание квазигруппы}
+    \begin{itemize}
+        \item Можно перейти от табличного задания операции к функциональному~\footcite{nosov08}: 
+        \[
+            x \circ y = z \leftrightarrow z_i = f_i(x_1, \ldots, x_n, y_1, \ldots, y_n). 
+        \]
+        \pause 
+        \item Рассмотрим для простоты случай $Q = \{0, 1\}^n$: хотим задать структуру квазигруппы на $Q$ с помощью семейства булевых функций.
+        \pause 
+        \item Какие условия надо наложить на функции $f_i$, чтобы операция $x \circ y$ задавала структуру квазигруппы на $Q$?
+    \end{itemize}
+\end{frame}
+
+
+\section{Правильные семейства функций}
+
+
+\begin{frame}{Правильные семейства булевых функций}
+    \begin{block}{Правильное семейство}
+        Семейство булевых функций $f_i \colon \{0, 1\}^n \to \{0, 1\}$ называется правильным, если для любых двух наборов $x \ne y$ найдется такая координата $i$, что $x_i \ne y_i$, но $f_i(x) = f_i(y)$ (см.~\footcite{nosov98, nosov99}).
+    \end{block}
+    \pause 
+
+    Правильные семейства можно задавать не только над $\{0, 1\}^n$, но над логикой любой значности $k$~\footcite{nosov06}, над произвольными группами~\footcite{nosov06abel}; над прямыми произведениями других квазигрупп~\footcite{galatenko2020latin} и даже $d$-квазигрупп~\footcite{plaksina14}.
+
+    \pause 
+    \begin{block}{Правильность и квазигруппы}
+        Семейство булевых функций $F = (f_1, \ldots, f_n)$ является правильным тогда и только тогда, когда отображение вида 
+        \[
+            (x, y) \to z = x \oplus y \oplus F(\pi_1(x_1, y_1), \ldots, \pi_n(x_n, y_n))
+        \]
+        задает квазигрупповую операцию \textbf{при любом выборе} внутренних функций $\pi_1, \ldots, \pi_n$.
+    \end{block}
+\end{frame}
+
+
+\begin{frame}{Примеры правильных семейств}
+    \begin{block}{Существенная (не)зависимость}
+        Из определения правильного семейства следует, что $f_i$ не зависит существенно от $x_i$.
+    \end{block}
+    \pause
+    \begin{block}{Константные семейства}
+        $f_i \equiv const_i$ является правильным.
+    \end{block}
+    \pause 
+    \begin{block}{Треугольные семейства}
+        \[
+            \begin{bmatrix}
+                f_1 \\
+                f_2 \\
+                f_3 \\
+                \vdots \\
+                f_n 
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+                const \\
+                f_{2}(x_{1}) \\
+                f_{3}(x_{1}, x_{2}) \\
+                \vdots \\
+                f_{n}(x_{1}, \ldots, x_{n-1})
+            \end{bmatrix}
+        \]
+        является правильным~\footcite{nosov06abel}.
+    \end{block}
+\end{frame}
+
+
+\begin{frame}{Примеры правильных семейств-2}
+    \begin{block}{Ортогональные функции}
+        Две функции $f, g \colon \EE_k^n \to \EE_k$ будем называть \textbf{ортогональными}, если для любого $x \in \EE_k^n$ выполняется хотя бы одно из двух равенств: $f(x) = 0$ или $g(x) = 0$. 
+    \end{block}
+    \pause
+    \begin{block}{Семейство ортогональных функций}
+        Пусть $F = (f_1, \ldots, f_n)$~--- семейство попарно ортогональных функций, и $f_i$ не зависит существенно от $x_i$.
+        Тогда $F$ является правильным~\footcite{nosov08}. 
+        \pause
+        К примеру, семейство булевых функций
+        \begin{gather*}
+            \label{OrthogExample}
+            f_1 =\bar{x}_2 x_3 \cdots x_{n-1} x_n,\\
+            f_2 =\bar{x}_3 x_4 \cdots x_{n} x_1,\\
+            \vdots \\
+            f_n =\bar{x}_1 x_2 \cdots x_{n-2} x_{n-1}
+        \end{gather*}
+        является правильным.
+    \end{block}
+\end{frame}
+
+
+\begin{frame}{Примеры правильных семейств-3}
+    \begin{alertblock}{Квадратичное семейство}
+        Семейство $F$ вида~\ref{quadratic} является правильным для любого $n \ge 1$~\footcite{dm21}:
+        \begin{equation}
+            \label{quadratic}
+            \begin{bmatrix}
+            0 \\
+            x_1 \\
+            x_1 \oplus x_2 \\
+            \vdots \\
+            x_1 \oplus x_2 \oplus \ldots \oplus x_{n-1}
+            \end{bmatrix}
+            \bigoplus
+            \begin{bmatrix}
+            \bigoplus_{i < j, \; i, j \ne 1}^n \; x_i x_j \\
+            \bigoplus_{i < j, \; i, j \ne 2}^n \; x_i x_j \\
+            \bigoplus_{i < j, \; i, j \ne 3}^n \; x_i x_j \\
+            \vdots \\
+            \bigoplus_{i < j, \; i, j \ne n}^n \; x_i x_j \\
+            \end{bmatrix}.
+        \end{equation}
+    \end{alertblock}
+\end{frame}
+
+
+\begin{frame}{Преобразования, сохраняющие правильность: сдвиги}
+    \begin{exampleblock}{Преобразование сдвига}
+        \label{thm:shift}
+        Для любого $\alpha = (a_1, \ldots, a_n) \in Q^n$ определим преобразование сдвига~\footcite{nosov08}:
+        \begin{gather*}
+            x \in Q^n \to L_{\alpha}(x) = (a_1 \circ x_1, \ldots, a_n \circ x_n), \\
+            x \in Q^n \to R_{\alpha}(x) = (x_1 \circ a_1, \ldots, x_n \circ a_n).
+        \end{gather*}
+        \pause
+        Если $F \colon Q^n \to Q^n$ правильное, то $T_{\alpha}(F(T_{\beta}(x)))$ также правильное, где $T \in \{L, R\}$, $\alpha, \beta \in Q^n$.
+    \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{Преобразования, сохраняющие правильность: перекодировки}
+    \begin{exampleblock}{Преобразование перекодировки}
+        \label{thm:reencoding}
+        Для любого набора $\Psi = (\psi_1, \ldots, \psi_n) \in Func(Q)^n$ определим преобразование перекодировки:
+        \[
+            x \in Q^n \to \Psi(x) = (\psi_1(x_1), \ldots, \psi_n(x_n)).
+        \]
+        Пусть $\Phi \in Func(Q)^n$, $\Psi \in Perm(Q)^n$.
+        Если $F(x) = (f_1(x), \ldots, f_n(x))$ правильное, то $\Phi(F(\Psi(x)))$ также правильное.
+    \end{exampleblock}
+    \pause
+    Если $\Phi, \Psi \in Perm(Q)^n$, то подобные преобразования будем называть преобразованиями перекодировки.
+    \pause
+    \begin{exampleblock}{Замечание}
+        Сдвиги являются частными случаями преобразования перекодировки.
+    \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{Преобразования, сохраняющие правильность: согласованная перенумерация}
+    \begin{exampleblock}{Согласованная перенумерация}
+        Пусть $\sigma \in Perm(n)$, определим преобразование согласованной перенумерации:
+        \begin{gather*}
+            F \to \sigma(F), \\
+            f_i(x_1, \ldots, x_n) \to 
+            f_{\sigma(i)}(x_{\sigma(1)}, \ldots, x_{\sigma(n)}).
+        \end{gather*}
+        \pause
+        Если $F(x)$~--- правильное, то $\sigma(F)$ также правильное~\footcite{nosov08}.
+    \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{Преобразования, сохраняющие правильность:  \guillemotleft проекция\guillemotright}
+    \begin{exampleblock}{Проекция}
+        Для любого $i \in \{1, \ldots, n\}$ и любого $a \in Q$ семейство~$F'$, полученное из правильного семейства~$F$ путем подстановки значения~$a$ вместо переменной~$x_i$ и исключением функции~$f_i$, является правильным семейством размера $(n-1)$~\footcite{nosov08}:
+        \[
+            F'(x_1,\ldots,x_{i-1}, x_{i+1}, \ldots, x_n) = \proj^i_a(F) =
+            \begin{bmatrix}
+              f_1(x_1,\ldots,x_{i-1}, a, x_{i+1}, \ldots, x_n) \\
+              \vdots \\
+              f_{i-1}(x_1,\ldots,x_{i-1}, a, x_{i+1}, \ldots, x_n) \\
+              f_{i+1}(x_1,\ldots,x_{i-1}, a, x_{i+1}, \ldots, x_n) \\
+              \vdots \\
+              f_{n}(x_1,\ldots,x_{i-1}, a, x_{i+1}, \ldots, x_n) \\
+            \end{bmatrix}.
+        \]
+    \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{Общий тип биективных преобразований, сохраняющих правильность}
+    \begin{itemize}
+        \item Пусть $\Phi$, $\Psi$~--- биекции на $Q^n$: $\Phi, \Psi \in Perm(Q^n)$.
+        Рассмотрим стабилизатор множества всех правильных семейств, заданных на $Q^n$:
+        \[
+            \{(\Phi, \Psi) \in Perm(Q^n) \mid \Phi(F(\Psi(x))) \text{ правильно для любого правильного } F \colon Q^n \to Q^n \}.  
+        \]
+        \pause
+        \item Тогда $\Phi$ и $\Psi$ должны быть изометриями $Q^n$ (в метрике Хэмминга).
+        \pause
+        \item Изометрии $\EE_k^n$, $\lvert Q \rvert = k$~--- это композиции перенумераций и перекодировок.
+        \pause
+        \item Оба этих класса преобразований сохраняют правильность (перенумерации должны быть согласованы).
+    \end{itemize}
+    \pause
+    \begin{alertblock}{Стабилизатор правильных семейств}
+        Биективные преобразования, сохраняющие правильность~--- это композиции перекодировок и согласованных перенумераций (других нет).
+    \end{alertblock}
+\end{frame}
+
+
+\begin{frame}{Открытые вопросы-1}
+    \begin{itemize}
+        \item Построение достаточно широких классов правильных семейств с \guillemotleft хорошими\guillemotright свойствами, в том числе и для логик большей значности $k > 2$?
+        \pause 
+        \item Есть отношение эквивалентности на множестве правильных семейств, как быстро строить представителей?
+        \pause 
+        \item Можно ли поставить классам эквивалентности во взаимно-однозначное соответствие какие-то геометрические объекты, группы симметрий которых соответствуют согласованным перенумерациям и перекодировкам (для логик значности $k > 2$)?
+    \end{itemize}
+\end{frame}
+
+
+\section{Эквивалентные определения правильности}
+
+
+\begin{frame}{Булев куб и одностоковые ориентации (USO)}
+    \begin{block}{Булев куб}
+        Булев куб $\BB_n$:
+        \begin{itemize}
+            \item вершины: $V = \{ \alpha \in \EE_2^n \}$;
+            \pause
+            \item ребра: $\{\alpha, \beta \} \in E$ тогда и только тогда, когда $\rho(\alpha, \beta) = 1$ (расстояние Хэмминга).
+        \end{itemize}
+    \end{block}
+    \pause 
+    \begin{block}{Ориентация с единственным стоком (USO)}
+        \textbf{Ориентация с единственным стоком}~\footcite{szabo2001} (unique sink orientation, USO) куба $\BB_n$~--- ориентированный граф, построенный по $\BB_n$ со следующим характеристическим свойством: в каждом подкубе $\BB_n$ существует единственный сток.
+    \end{block}
+\end{frame}  
+
+  
+\begin{frame}{USO: один пример}
+    \begin{figure}
+          \centering
+          \includegraphics[width=0.45\linewidth]{USO.png}
+          \caption{Одностоковая ориентация трехмерного булева куба $\BB_3$}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Граф семейства $\Gamma(F)$}
+    \begin{block}{Граф семейства}
+        Пусть $F$~--- семейство булевых функций, построим по нему граф $\Gamma(F)$.
+        \pause
+        \begin{itemize}
+            \item Вершины: $V = \{ \alpha \in \EE_2^n \}$.
+            \pause
+            \item Пусть $\alpha \ne \beta$, $\rho(\alpha, \beta) = 1$, $\alpha_i \ne \beta_i$, добавим ориентированное ребро $(\beta, \alpha) \in E$ тогда и только тогда, когда $f_i(\alpha) = \alpha_i$.
+        \end{itemize}
+    \end{block}
+    \pause
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.45\linewidth]{edge.png}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Неподвижные точки графа $\Gamma(F)$}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.45\linewidth]{edge.png}
+    \end{figure}
+    \begin{itemize}
+        \item Чему в терминах графа $\Gamma(F)$ соответствует неподвижная точка $\alpha$ отображения $x \to F(x)$?
+        \pause
+        \item $f_i(\alpha) = \alpha_i$ для всех $1 \le i \le n$.
+        \pause 
+        \item Следовательно, $\alpha$~--- сток в $\Gamma(F)$.
+        \pause 
+        \item Ориентации подкубов в $\Gamma(F)$ задаются проекциями $F'$ семейства $F$.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{USO и правильность: два описания одного объекта}  
+    \begin{alertblock}{Взаимно-однозначное соответствие}
+        Граф $\Gamma(F)$ семейства булевых функций $F$ является одностоковой ориентацией тогда и только тогда, когда $F$~--- правильное семейство~\footcite{intsys20, pdm20}.
+    \end{alertblock}
+    \pause
+    \begin{itemize}
+        \item Существует взаимно-однозначное соответствие между \guillemotleft алгебраическим\guillemotright и \guillemotleft геометрическим\guillemotright описаниями.
+        \pause
+        \item Это позволяет переводить результаты с одного \guillemotleft языка\guillemotright на другой.
+        \pause
+        \item Некоторые примеры переноса: вероятностный алгоритм порождения правильных семейств с помощью процедуры MCMC~\footcite{USOphd, galatenko21}, оценка на число булевых правильных семейств~\footcite{dm21}, новые классы правильных семейств.
+    \end{itemize}    
+\end{frame}
+
+
+\begin{frame}{Примеры переноса результатов: рекурсивная треугольность}
+    \begin{block}{Рекурсивная ориентация}
+        Рекурсивно одностоковая ориентация булева $n$-мерного куба $\EE_n$ задается следующим характеристическим свойством: найдется такое направление $i$, вдоль которой все ребра ориентированы в одном направлении, и ориентация на каждом из подкубов $x_i = 0$ и $x_i = 1$ размерности $(n-1)$ также является рекурсивно одностоковой (recursively combed cube orientation~\footcite{gao2020new}).
+    \end{block}
+    \pause 
+    \begin{alertblock}{Рекурсивно треугольное семейство}
+        Семейство $F \colon \EE_k^n \to \EE_k^n$ со свойством: существует $i$, такое что $f_i \equiv const_i$, и $\proj_a^i(F)$ рекурсивно треугольны для всех $a \in \EE_k$.
+    \end{alertblock}
+\end{frame}
+
+
+\begin{frame}{Рекурсивная треугольность}
+    \begin{alertblock}{Замечание}
+        Рекурсивно треугольные семейства более общее понятие, чем треугольные: треугольные семейства являются такими рекурсивно треугольными, что каждая из проекций $\proj^a_i(F)$ постоянна вдоль одного и того же направления~$j$.
+    \end{alertblock}
+    \pause
+    \begin{alertblock}{Теорема}
+        Рекурсивно треугольные семейства являются правильными.
+    \end{alertblock}
+\end{frame}
+
+
+\begin{frame}{Примеры переноса-2: почти все булевы правильные семейства не треугольны}
+    Пусть $T(n)$ ($\Delta(n)$)~--- число \textbf{булевых} правильных (треугольных) семейств размера~$n$.
+    \pause
+    \begin{alertblock}{Оценка на число булевых правильных семейств}
+        \[
+            n^{A \cdot 2^n} \le T(n) \le n^{B \cdot 2^n},
+        \]
+        где $A$, $B$~--- некоторые положительные константы~\footcite{numberUSO}.
+    \end{alertblock}
+    \pause 
+    \begin{alertblock}{Булевых треугольных семейств экспоненциально мало}
+    \label{ThTri}
+        \[
+            \frac{\Delta(n)}{T(n)} = o \Big(\frac{1}{n^{D \cdot 2^n}} \Big) \text{ при } n \to \infty,
+        \]
+        для некоторого $D > 0$~\footcite{dm21}.
+    \end{alertblock}
+\end{frame}
+
+
+\begin{frame}{Рекуррентное соотношение для числа рекурсивно треугольных семейств}
+    \begin{alertblock}{Число рекурсивно треугольных семейств}
+        Пусть $\Delta^{\rec}(n)$~--- число рекурсивно треугольных семейств размера~$n$ над $k$-значной логикой.
+        Тогда выполняется равенство:
+        \[
+            \Delta^{\rec}(n) = \sum_{j=1}^{n} (-1)^{j+1} \cdot k^j \cdot {n \choose j} \Delta^{\rec}(n-j)^{k^j}.
+        \]
+    \end{alertblock}
+    \pause 
+    \begin{exampleblock}{Замечание}
+        Для рекурсивно треугольных булевых семейств также можно показать, что их число есть о-малое от всех булевых правильных семейств.
+    \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{Сложность распознавания правильности}
+    \begin{itemize}
+        \item В общем случае проверка правильности семейства является сложной задачей: если семейство булевых функций задано в форме КНФ, то задача распознавания правильности coNP-полна~\footcite{nosov98}.
+        \pause 
+        \item В определенных случаях задача проверки правильности может быть упрощена, в частности, за счет вида графа существенной зависимости~\footcite{rykov10, rykov14}.
+        \pause 
+        \item Алгоритм проверки правильности булева семейства требует порядка $\mathcal{O}(4^n)$ операций вычисления правильного семейства на двоичном наборе $x$ (проверка по определению правильности).
+        \pause 
+        \item Можно предложить алгоритм со сложностью $\mathcal{O}(3^n)$, который проверяет, что ориентация $\Gamma(F)$, задаваемая семейством $F$, является одностоковой~\footcite{bosshard2017pseudo}.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Неподвижные точки правильного семейства}
+    \begin{alertblock}{Неподвижные точки, $k=2$}
+        Булево семейство $F$ является правильным тогда и только тогда, когда семейство $F$ и каждая из его проекций имеет единственную неподвижную точку.
+    \end{alertblock}
+    \pause 
+    \begin{exampleblock}{Неподвижные точки, $k>2$}
+        Семейство $F \colon \EE_k^n \to \EE_k^n$ является правильным тогда и только тогда, когда для любой перекодировки $F$ все её проекции имеют единственную неподвижную точку.
+    \end{exampleblock}
+    \pause 
+    В булевом случае свойство единственности неподвижной точки дает ещё одно характеристическое свойство правильных семейств, которое изучалось в контексте математической биологии (в частности, при изучении экспрессии генов~\footcite{thomas1991regulatory, richard2015fixed, ruet2015asynchronous, ruet2016local}).    
+\end{frame}
+
+
+\begin{frame}{Булевы сети с наследственно единственной неподвижной точкой}
+    \begin{block}{Булевы сети с наследственно единственной неподвижной точкой}
+        $\mathsf{HUPF}$-сеть (сеть с наследственно единственной неподвижной точкой, hereditarily unique fixed point network)~--- булево семейство $F$ со следующим свойством: $F$ и все его проекции имеют единственную неподвижную точку (как отображения $\EE_2^n \to \EE_2^n$).
+    \end{block}
+    \pause 
+    Соответствие между булевыми правильными семействами и $\mathsf{HUPF}$-сетями позволяет перенести (и обобщить) часть результатов, полученных в контексте изучения динамики таких сетей, на правильные семейства.
+\end{frame}
+
+
+\begin{frame}{Глобальный граф взаимодействия}
+    Пусть $F$~--- семейство размера $n$.
+    Определим глобальный граф взаимодействий $G(F)$:
+    \pause 
+    \begin{itemize}
+      \item Вершины: $V = \{1, \ldots, n\}$.
+      \pause
+      \item Ребра: $i \to j$ тогда и только тогда, когда $f_j$ существенно зависит от $x_i$.
+      \pause
+      \item Эквивалентно: дискретная частная производная $f_j$ по $x_i$ не равна тождественно нулю.
+    \end{itemize}
+    \pause
+    \begin{exampleblock}{Ациклические глобальные графы}
+        Если $G(F)$~--- ациклический, то $F$~--- $\mathsf{HUPF}$-сеть~\footcite{robert1980iterations}.
+    \end{exampleblock}
+    \pause 
+    Эквивалентно: если $F$~--- булево треугольное семейство, то $F$ правильно.
+\end{frame}
+
+
+\begin{frame}{Локальный граф взаимодействий}
+    Пусть $F$~--- семейство размера $n$.
+    Определим локальный граф взаимодействий $G(F, \alpha)$:
+    \pause 
+    \begin{itemize}
+      \item Вершины: $V = \{1, \ldots, n\}$.
+      \pause
+      \item Ребра: $i \to j$ тогда и только тогда, когда $f_j$ существенно зависит от $x_i$  \guillemotleft локально\guillemotright в точке $\alpha$:
+      \[
+          f_j(\alpha_1, \ldots, \alpha_i, \ldots, \alpha_n) \ne f_j(\alpha_1, \ldots, \alpha_i \oplus 1, \ldots, \alpha_n).
+      \]
+    \end{itemize}
+    \pause 
+    \begin{exampleblock}{Ациклические локальные графы}
+        Пусть $G(F, \alpha)$~--- ациклический для каждой точки $\alpha \in \EE_2^n$, тогда $F$~--- $\mathsf{HUPF}$-сеть~\footcite{shih2005combinatorial}.
+    \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{Локальный граф взаимодействий-2}
+    \begin{alertblock}{Локально треугольные семейства}
+        Будем называть $F \colon \EE_k^n \to \EE_k^n $ локально треугольным, если $G(F, \alpha)$ ацикличен для каждой точки $\alpha \in \EE_k^n$, где локальная зависимость $f$ от $x_i$ в точке $\alpha$ определяется как:
+        \[
+            \exists b \colon f(\alpha_1, \ldots, \alpha_i, \ldots, \alpha_n) \ne f(\alpha_1, \ldots, b, \ldots, \alpha_n).
+        \]
+    \end{alertblock}
+    \pause 
+    \begin{alertblock}{Теорема}
+        Локально треугольные семейства являются правильными.
+    \end{alertblock}
+    \pause
+    \begin{alertblock}{Замечание}
+        Всякое рекурсивно треугольное семейство является локально треугольным.
+    \end{alertblock}
+\end{frame}
+
+
+\begin{frame}{Локальный граф взаимодействий-3}
+    \begin{exampleblock}{Теорема}
+        Если для любого $t$, $1 \le t \le n$ существует не более $2^t - 1$ наборов $\alpha$, таких что $G(F, \alpha)$ имеет цикл длины не более чем $t$, то $F$ является $\mathsf{HUPF}$-сетью.
+    \end{exampleblock}
+    \pause 
+    \begin{itemize}
+        \item Непонятно, является ли это условие критерием.
+        \pause
+        \item Интуитивная интерпретация /  \guillemotleft перевод\guillemotright на язык правильных семейств общего вида пока что отсутствуют.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Характеризация через несамодвойственные проекции}
+    \begin{block}{Самодвойственное семейство}
+        Отображение $F \colon \EE_2^n \to \EE_2^k$ самодвойственно, если для любого набора $x \in \EE_2^n$ выполняется свойство $F(\overline{x}) = \overline{F(x)}$.
+    \end{block}
+    \pause 
+    \begin{alertblock}{О несамодвойственности проекций} 
+        Семейство $F$ булевых функций правильно тогда и только тогда, когда каждая из его проекций 
+        \[
+            \proj^{a_1, \ldots, a_k}_{i_1, \ldots, i_k}(F)
+        \] 
+        \textbf{не является} самодвойственным булевым отображением.
+    \end{alertblock}
+\end{frame}
+
+
+\begin{frame}{Ещё некоторые альтернативные характеризации}
+    Существует ещё несколько альтернативных характеризаций правильных семейств.
+    \begin{itemize}
+        \item Через (не)ортогональность аффинных пространств, построенных по правильным семействам.
+        \pause
+        \item Кликовое представление правильных семейств: правильные семейства находятся во взаимно-однозначном соответствии с кликами некоторым образом построенного графа (для $k=2$ перенос из теории $\mathsf{USO}$-ориентаций, для $k > 2$~--- видимо, удалось получить аналогичный результат).
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Открытые вопросы-2}
+    \begin{itemize}
+        \item Эквивалентные определения правильным семейств для значности логики $k > 2$?
+        \pause 
+        \item В чем причина того, что некоторые эквивалентности  \guillemotleft работают\guillemotright только в случае $k = 2$ и  \guillemotleft ломаются\guillemotright при переходе к $k > 2$?
+        \pause 
+        \item Дальнейший перенос и обобщение результатов, полученных в рамках исследований $\mathsf{HUPF}$-сетей и одностоковых ориентаций.
+    \end{itemize}
+\end{frame}
+
+
+\section{Свойства правильных семейств}
+
+
+\begin{frame}{Мощность образа правильного семейства}
+    Если семейство $(f_1, \ldots, f_n)$~--- правильное, то отображение вида 
+    \[
+        (x, y) \to z = x \oplus y \oplus f(\pi_1(x_1, y_1), \ldots, \pi_n(x_n, y_n))
+    \]
+    задает квазигрупповую операцию \textbf{при любом выборе} внутренних функций $\pi_1, \ldots, \pi_n$.
+    \pause 
+    \begin{itemize}
+        \item Но сколько может получиться \textbf{различных} квазигрупп при варьировании $\pi_1, \ldots, \pi_n$?
+        \pause 
+        \item Плохой пример: если все $f_i \equiv const_i$, то смена $\pi_i$ ничего не даст.
+        \pause
+        \item Оказывается, что количество порождаемых квазигрупп одним правильным семейством $F$ зависит от мощности образа этого семейства~\footcite{galatenko23}.
+    \end{itemize}
+    \begin{exampleblock}{Связь мощности образа и количества порождаемых квазигрупп}
+        Пусть $F \colon \EE_k^n \to \EE_k^n$~--- правильное семейство, $M$~--- мощность образа отображения $x \to F(x)$.
+        Тогда число различных квазигрупп, порождаемых указанной конструкцией, не менее чем $M^{k^2}$.
+    \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{Мощности образов некоторых конкретных правильных семейств}
+    Число значений, принимаемых правильным семейством порядка~$n$ в $k$-значной логике, не превосходит~$k^{n-1}$ (см.~\footcite{galatenko23}).
+
+    \begin{alertblock}{Мощность образа квадратичного семейства}
+        Семейство 
+        \begin{equation}
+            \begin{bmatrix}
+            0 \\
+            x_1 \\
+            \vdots \\
+            x_1 \oplus x_2 \oplus \ldots \oplus x_{n-1}
+            \end{bmatrix}
+            \bigoplus
+            \begin{bmatrix}
+            \bigoplus_{i < j, \; i, j \ne 1}^n \; x_i x_j \\
+            \bigoplus_{i < j, \; i, j \ne 2}^n \; x_i x_j \\
+            \vdots \\
+            \bigoplus_{i < j, \; i, j \ne n}^n \; x_i x_j \\
+            \end{bmatrix}
+        \end{equation}
+        имеет максимальную мощность образа~$2^{n-1}$.
+    \end{alertblock}
+\end{frame}
+
+
+\begin{frame}{Мощности образов некоторых конкретных правильных семейств-2}
+    Рассмотрим семейство булевых функций 
+    \begin{equation}
+        \label{stronglyquadratic}
+        \begin{bmatrix}
+            f_1(x_1, \ldots, x_n) \\
+            f_2(x_1, \ldots, x_n) \\
+            \vdots \\
+            f_n(x_1, \ldots, x_n) \\
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            \overline{x}_2 \cdot x_3 \\
+            \overline{x}_3 \cdot x_4 \\
+            \vdots \\
+            \overline{x}_1 \cdot x_2 \\
+        \end{bmatrix}.
+    \end{equation}
+    \pause
+    Семейство~(\ref{stronglyquadratic}) является правильным.
+    \pause
+    \begin{alertblock}{Мощность образа}
+        Мощность образа семейства~(\ref{stronglyquadratic}) равна $\lucas_n$ ($n$-е число Люка):
+        \[
+            \lucas_n = \lucas_{n-1} + \lucas_{n-2}, \quad \lucas_0 = 2, \lucas_1 = 1.
+        \]
+    \end{alertblock}
+\end{frame}
+
+
+\begin{frame}{О прообразах правильных семейств}
+    Для правильных семейств булевых функций верно следующее утверждение~\footcite{dm21}.
+    \begin{alertblock}{Четность числа элементов в прообразе}
+    \label{thm:preimage}
+        Пусть $F$~--- правильное семейство булевых функций.
+        Тогда для любого $\alpha \in \{0, 1\}^n$ число решений уравнения $F(x) = \alpha$ всегда четно.
+    \end{alertblock}
+\end{frame}
+
+
+\begin{frame}{Подстановки, порождаемые правильными семействами}
+    Пусть $F \colon Q^n \to Q^n$~--- правильное, $(Q, \circ)$~--- квазигруппа.
+    Тогда отображение
+    \[ 
+        \sigma_F(x) \colon x \to x \circ F(x),
+        \quad
+        \begin{bmatrix}
+            x_1 \\
+            \vdots \\
+            x_n
+        \end{bmatrix} 
+        \to 
+        \begin{bmatrix}
+            x_1 \circ f_1(x_1, \ldots, x_n) \\
+            \vdots \\
+            x_n \circ f_n(x_1, \ldots, x_n)
+        \end{bmatrix}
+    \]
+    является подстановкой: $\sigma_F \in Perm(Q^n)$.
+\end{frame}
+
+
+\begin{frame}{Обращение подстановок, порожденных правильными семействами}
+    Пусть $F \colon Q^n \to Q^n$~--- правильное.
+    Рассмотрим $\sigma^{-1}_F \in Perm(Q^n)$.
+    \begin{alertblock}{Обратимость  \guillemotleft правильных подстановок\guillemotright}
+        Если $(Q, +)$~--- группа (т.е., операция $+$ ассоциативна), то семейство $G \colon Q^n \to Q^n$, определенное как
+        \[
+            G(x) = (-x) + \sigma_F^{-1}(x)
+        \]
+        также является правильным.
+    \end{alertblock}
+    Т.е., если $F$~--- правильное, то существует правильное семейство $G$ со свойством
+    \[
+        \sigma^{-1}_F(x) = \sigma_G(x).
+    \]
+    \pause 
+    Таким образом, множество \guillemotleft правильных подстановок\guillemotright замкнуто относительно взятия обратного элемента (в случае, когда $Q$~--- группа).
+\end{frame}
+
+
+\begin{frame}{О подстановках, порождаемых правильными семействами-2}
+    \begin{alertblock}{Незамкнутость относительно композиций}
+        Множество \guillemotleft правильных подстановок\guillemotright $\sprop$ \textbf{не является} подгруппой $Perm(Q^n)$.
+    \end{alertblock}
+    \pause 
+    \begin{alertblock}{Транзитивность действия}
+        Замыкание $\sprop$ действует транзитивно на $Q^n$ (любой элемент из $Q^n$ можно перевести в любой другой с помощью композиции некоторого количества $\sigma_{F}$).
+    \end{alertblock}
+    \pause 
+    \begin{block}{Булев случай}
+        В случае $Q = \EE_2$ известно~\footcite{USOphd}, что замыкание $\sigma_F$ порождает все множество подстановок $Perm(\EE_2^n)$.
+    \end{block}
+\end{frame}
+
+
+\begin{frame}{О подстановках, порождаемых правильными семействами-3}
+    \begin{exampleblock}{Напоминание}
+        Для любого $A \in \{0, 1\}^n$ количество решений уравнения $F(x) = A$ четно
+    \end{exampleblock}
+    \pause
+    \begin{alertblock}{Количество неподвижных точек $\sigma_F$}
+        Из теоремы выше следует, что у подстановки $\sigma_F(x) = x \oplus F(x)$, где $F$~--- правильное семейство булевых функций, чётное число неподвижных точек.
+    \end{alertblock}
+\end{frame}
+
+
+\begin{frame}{Открытые вопросы-3}
+    \begin{itemize}
+        \item Пока что очень мало понятно про то, каковы алгебраические свойства квазигрупп, порождаемых правильными семействами (в частности, каковы свойства подстановок $\sigma_F$?).
+        \pause 
+        \item Хотелось бы, чтобы по виду правильного семейства можно было определять алгебраические свойства квазигруппы: наличие/отсутствие подквазигрупп, полиномиальная полнота, индекс ассоциативности и т.д...
+        \pause 
+        \item Пока что очень мало понятно про подстановки, порождаемые правильными семействами, в случае логики $k > 2$.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Заключение}
+    \begin{itemize}
+        \item Правильные семейства функций могут быть описаны несколькими эквивалентными способами.
+        \pause 
+        \item Различные способы описания дают возможность переноса результатов из смежных областей на \guillemotleft язык\guillemotright правильных семейств; некоторые результаты допускают обобщения на правильные семейства над логиками произвольной значности.
+        \pause 
+        \item Правильные семейства могут задавать структуру квазигруппы; квазигруппы, в свою очередь, могут использоваться для построения различных криптографических примитивов.
+        \pause 
+        \item Многие важные с точки зрения криптографии свойства получаемых примитивов зависят от используемой квазигруппы; в этом контексте полезно изучать свойства квазигрупп, порождаемых правильными семействами.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \begin{center}
+        \Large{Спасибо за внимание!}
+    \end{center}
+\end{frame}
+
+
+\begin{frame}{Публикации автора}
+    \begin{itemize}
+        \item \guillemotleft  О соответствии между правильными семействами и реберными ориентациями булевых кубов\guillemotright, Интеллектуальные системы. Теория и приложения, 24:1 (2020), 97--100.
+        \item \guillemotleft О взаимно однозначном соответствии между правильными семействами булевых функций и рёберными ориентациями булевых кубов\guillemotright, ПДМ, 2020, 48,  16--21 (2020).
+        \item \guillemotleft О свойствах правильных семейств булевых функций\guillemotright, Дискрет. матем., 33:1 (2021), 91--102.
+        \item ``Format-preserving encryption: a survey'', Матем. вопр. криптогр., 13:2 (2022),  133--153.
+        \item \guillemotleft Об одном квазигрупповом алгоритме шифрования, сохраняющего формат\guillemotright, ПДМ. Приложение, 2023, 16,  102--104.
+    \end{itemize}
+    В соавторстве:
+    \begin{itemize}
+        \item A. V. Galatenko, V. A. Nosov, A. E. Pankratiev, K. D. Tsaregorodtsev, ``Proper families of functions and their applications'', Матем. вопр. криптогр., 14:2 (2023),  43--58.
+        \item А. В. Галатенко, В. А. Носов, А. Е. Панкратьев, К. Д. Царегородцев, \guillemotleft О порождении n-квазигрупп с помощью правильных семейств функций\guillemotright, Дискрет. матем., 35:1 (2023),  35--53.
+    \end{itemize}
+\end{frame}

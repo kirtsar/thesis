@@ -1,0 +1,368 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+%%% PAGE DIMENSIONS 16:9
+\documentclass[notheorems, aspectratio=169]{beamer}
+
+%%% TEXT FEATURES
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+\usepackage[T2A]{fontenc} % font encoding
+\usepackage[russian]{babel} % languages
+\usepackage{amsfonts} % for natural, rational, etc numbers
+\usepackage{amsmath} % special math symbols
+\usepackage{amssymb} % some more special symbols
+\usepackage{color, colortbl}
+\setbeamertemplate{navigation symbols}{}
+\renewcommand{\arraystretch}{1.5}
+\usefonttheme{serif}
+
+%%% COLORIZING FEATURES
+
+% color theme settings
+\mode<presentation>
+{
+  \usetheme{AnnArbor}
+  \usecolortheme{beaver}
+  \setbeamercovered{transparent}
+}
+\setbeamercolor{frametitle}{use=structure, bg=gray-background, fg=dark}
+\setbeamercolor{palette primary}{bg=dark, fg=white}
+\setbeamercolor{palette secondary}{bg=light, fg=white}
+\setbeamercolor{palette tertiary}{bg=medium, fg=white}
+
+% frame title settings
+\setbeamertemplate{frametitle}
+{
+    \nointerlineskip
+    \begin{beamercolorbox}[sep=0.3cm,ht=1.8em,wd=\paperwidth]{frametitle}
+        \strut\textbf{\insertframetitle}\strut
+        \vskip-1ex%
+    \end{beamercolorbox}
+}
+
+% colored theorem blocks
+\setbeamercolor{block title}{use=structure,fg=white,bg=medium}
+\setbeamercolor{block body}{use=structure,fg=black,bg=light!10}
+
+% colored tables
+\usepackage{colortbl}
+\usepackage{tabularray}
+
+% colored captions
+\usepackage{caption}
+\DeclareCaptionLabelFormat{mycaption}{\usebeamercolor[medium]{caption name} #1 #2: }
+\captionsetup[figure]{labelformat=mycaption, labelsep=none, labelfont=bf}
+\captionsetup[table]{labelformat=mycaption, labelsep=none, labelfont=bf}
+
+% colored lists (light-blue squares)
+\usepackage{enumitem, xcolor}
+\newlist{coloritemize}{itemize}{1}
+\setlist[coloritemize]{label=\textcolor{light}{$\blacksquare$}}
+\colorlet{itemizecolor}{.}% Default colour for \item in itemizecolor
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% To use a different custom template in the {coloritemize} environment,   %%%
+%%% set item parameters:                                                    %%%
+%%%                                                                         %%%
+%%% \begin{coloritemize}                                                    %%%
+%%%     \item[{$\color{medium}\blacksquare$}]                               %%%
+%%% \end{coloritemize}                                                      %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% bordered text
+\usepackage[most]{tcolorbox}
+
+\newtcolorbox{mytheorem}[1]{
+    enhanced jigsaw,
+    colback=red!5!white,
+    colframe=red!75!black,fonttitle=\bfseries,
+    colbacktitle=red!85!black,enhanced,
+    %size=small,%
+    %boxrule=1pt,%
+    halign title=flush left,%
+    %coltitle=blue,%
+    breakable,%
+    drop fuzzy shadow=black!70!white,%
+    left=0pt,
+    titlerule=0pt,
+    top=1pt,
+    bottom=0pt,
+    enlarge left by=-0.1cm,
+    grow to right by=0.21cm,
+    frame empty,
+    borderline={0.3mm}{0mm}{dark},
+    fonttitle = \bfseries,
+    title=#1
+}
+
+
+\newtcolorbox{mypropos}[1]{
+    enhanced jigsaw,
+    colback=green!5!white,
+    colframe=green!75!black,fonttitle=\bfseries,
+    colbacktitle=green!65!black,enhanced,
+    %size=small,%
+    %boxrule=1pt,%
+    halign title=flush left,%
+    %coltitle=blue,%
+    breakable,%
+    drop fuzzy shadow=black!70!white,%
+    left=0pt,
+    titlerule=0pt,
+    top=1pt,
+    bottom=0pt,
+    enlarge left by=-0.1cm,
+    grow to right by=0.21cm,
+    frame empty,
+    borderline={0.3mm}{0mm}{dark},
+    fonttitle = \bfseries,
+    title=#1
+}
+
+
+\newtcolorbox{myexample}[1]{
+    enhanced jigsaw,
+    colback=blue!5!white,
+    colframe=blue!75!black,fonttitle=\bfseries,
+    colbacktitle=blue!65!black,enhanced,
+    %size=small,%
+    %boxrule=1pt,%
+    halign title=flush left,%
+    %coltitle=blue,%
+    breakable,%
+    drop fuzzy shadow=black!70!white,%
+    left=0pt,
+    titlerule=0pt,
+    top=1pt,
+    bottom=0pt,
+    enlarge left by=-0.1cm,
+    grow to right by=0.21cm,
+    frame empty,
+    borderline={0.3mm}{0mm}{dark},
+    fonttitle = \bfseries,
+    title=#1
+}
+
+%%% CUSTOM COLORS
+% presentation pack
+\definecolor{light}{RGB}{34, 187, 221}
+\definecolor{medium}{RGB}{0, 85, 170}
+\definecolor{dark}{RGB}{10, 32, 64}
+\definecolor{gray-background}{RGB}{237, 237, 237}
+\definecolor{dark-gray}{RGB}{167, 176, 184}
+
+% plots pack 
+\definecolor{myorange}{RGB}{221, 69, 34}
+\definecolor{mymagenta}{RGB}{162, 34, 221}
+\definecolor{mygreen}{RGB}{33, 221, 34}
+
+%%% IMAGES AND PLOTS
+\usepackage{tikz}
+\usepackage[]{graphicx} % Required for including images
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\pgfplotsset{every axis legend/.append style={anchor=north east, font=\footnotesize}} %legend style
+
+%%% DECORATIVE ELEMENTS
+\usepackage{pdfpages} % add title as pdf file
+
+% date
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+\date{июнь 2025 г.}
+
+% logo
+\logo{
+\begin{tikzpicture}[overlay,remember picture]
+\node[left=0cm] at (current page.-26){
+    \includegraphics[width=1.2cm]{AKTIV_NEW LOGO.png}
+};
+\end{tikzpicture}
+}
+
+%%% READ MORE
+%%% https://www.cpt.univ-mrs.fr/~masson/latex/Beamer-appearance-cheat-sheet.pdf
+%%% ___________________________________________________________________________
+
+\newtheorem{definition}{Определение}
+\newtheorem{theorem}{Теорема}
+\newtheorem{lemma}{Лемма}
+\newtheorem{corollary}{Следствие}
+\newtheorem{prop}{Утверждение}
+\newtheorem{example}{Пример}
+
+\newtheoremstyle{named}{}{}{\itshape}{}{\bfseries}{.}{.5em}{\thmnote{#3's }#1}
+\theoremstyle{named}
+\newtheorem*{namedtheorem}{Теорема}
+
+\graphicspath{{./images/}}
+\setbeamerfont{footnote}{size=\tiny}
+
+%\usepackage[c]{beamerfontthemestructureitalicserif}
+
+%%%%%%% FONTS %%%%%%%%%%%%%%%%
+
+% \setsansfont{FiraSans-Light}[
+% Path = ./styles/fonts/,
+% Extension = .otf,
+% BoldFont=FiraSans-Regular,
+% ItalicFont=FiraSans-LightItalic,
+% BoldItalicFont=FiraSans-Italic
+% ]
+% % Courier New
+% \setmonofont{FiraMono-Medium}[
+% Path = ./styles/fonts/,
+% Extension = .otf,
+% BoldFont=FiraMono-Bold,
+% ItalicFont=FiraMono-Medium,
+% BoldItalicFont=FiraMono-Bold,
+% ]
+
+% \newfontfamily{\cyrillicfont}{FiraMono-Medium}[
+% Path = ./styles/fonts/,
+% Extension = .otf,
+% BoldFont=FiraMono-Bold,
+% ItalicFont=FiraMono-Medium,
+% BoldItalicFont=FiraMono-Bold,
+% ]
+
+% \usepackage{unicode-math}
+% \setmathfont{STIX2Math}[
+% Path = ./styles/fonts/,
+% Extension = .otf
+% ]
+
+
+%\usepackage[style=verbose,backend=biber]{biblatex}
+\usepackage[style=authortitle-comp,backend=bibtex]{biblatex}
+\addbibresource{matis_biblio.bib}
+
+\usepackage{csquotes}
+
+% ------------- Creating a new block template ----------
+% theorem block 
+\makeatletter
+\def\th@newblock{%
+  \normalfont 
+  \def\inserttheoremblockenv{theoremblock}}
+\theoremstyle{newblock}
+\newtheorem{Thm}[theorem]{Теорема}
+\makeatother
+
+% lemma block 
+\makeatletter
+\def\th@newblock{%
+  \normalfont 
+  \def\inserttheoremblockenv{theoremblock}}
+\theoremstyle{newblock}
+\newtheorem{Lem}[theorem]{Лемма}
+\makeatother
+
+% example block 
+\makeatletter
+\def\th@newblock{%
+  \normalfont 
+  \def\inserttheoremblockenv{theoremblock}}
+\theoremstyle{newblock}
+\newtheorem{Def}[theorem]{Определение}
+\makeatother
+
+% remark block 
+\makeatletter
+\def\th@newblock{%
+  \normalfont 
+  \def\inserttheoremblockenv{theoremblock}}
+\theoremstyle{newblock}
+\newtheorem{Rem}[theorem]{Замечание}
+\makeatother
+
+
+
+
+%%%%%%%%%%%%% ADDITIONAL COMMANDS %%%%%%%%%%%%%%%
+
+% множества
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\BB}{\mathbf{B}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\FF}{\mathbb{F}}
+% группы, квазигруппы
+\newcommand{\SSS}{\mathcal{S}}
+\newcommand{\sprop}{\mathcal{S}^{\mathsf{prop}}}
+\newcommand{\QQQ}{Q_1 \times \ldots \times Q_n}
+\newcommand{\GGG}{G}
+
+% функции и аргументы
+\newcommand{\ff}{\mathcal{F}}
+\newcommand{\gf}{\mathcal{G}}
+\newcommand{\hf}{\mathcal{H}}
+\renewcommand{\ss}{\mathbf{s}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+%\newcommand{\zz}{\mathbf{z}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\dd}{\partial}
+\newcommand{\loc}{\mathsf{loc}}
+\newcommand{\rec}{\mathsf{rec}}
+\newcommand{\hupf}{\mathsf{HUFP}}
+\newcommand{\divides}{\mid}
+
+% команды 
+\newcommand{\proj}{\Pi}
+\newcommand{\inv}{\mathsf{inv}}
+\newcommand{\Img}{\mathsf{Im}}
+\newcommand{\fib}{\mathsf{Fib}}
+\newcommand{\lucas}{\mathsf{Lucas}}
+\newcommand{\uso}{\mathsf{USO}}
+
+
+% криптография
+\newcommand{\sample}{\gets^{\mathcal{U}}}
+\newcommand{\Dom}{\mathbf{Dom}}
+\newcommand{\Keys}{\mathbf{Keys}}
+\newcommand{\Twk}{\mathbf{Twk}}
+\newcommand{\enc}{\mathsf{Enc}}
+\newcommand{\dec}{\mathsf{Dec}}
+\newcommand{\gen}{\mathsf{Gen}}
+\newcommand{\fpe}{\mathsf{FPE}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\AtBeginSection[]
+{
+    \begin{frame}
+        \frametitle{Содержание}
+        \tableofcontents[currentsection]
+    \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{titlepage}
+
+\begin{document}
+
+%\maketitle
+
+%%% TITLE
+\includepdf[pages=1]{title.pdf}
+
+\begin{frame}{Содержание доклада}
+    \setbeamertemplate{section in toc}[sections numbered]
+    \tableofcontents%[hideallsubsections]
+\end{frame}
+
+\input{pres.source.tex}
+
+%%% LAST SLIDE
+\includepdf[pages=1]{final.pdf}
+
+%%% BIBLIOGRAPHY
+\begin{frame}[allowframebreaks]{Список литературы}
+    \printbibliography
+\end{frame}
+
+\end{document}
+
