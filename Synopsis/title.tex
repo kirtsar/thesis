@@ -1,14 +1,20 @@
 \thispagestyle{empty}
 
+\thispagestyle{empty}
+\begin{center}
+\thesisOrganization
+\end{center}
+
+\vspace{0pt plus1fill}
 \noindent%
 \begin{tabularx}{\textwidth}{@{}lXr@{}}%
-    & & \large{На правах рукописи}\\
-    \IfFileExists{images/logo.pdf}{\includegraphics[height=2.5cm]{logo}}{\rule[0pt]{0pt}{2.5cm}}  & &
-    \ifnumequal{\value{showperssign}}{0}{%
-        \rule[0pt]{0pt}{1.5cm}
-    }{
-        \includegraphics[height=1.5cm]{personal-signature.png}
-    }\\
+    & & \large{\textit{На правах рукописи}}\\
+    % \IfFileExists{images/logo.pdf}{\includegraphics[height=2.5cm]{logo}}{\rule[0pt]{0pt}{2.5cm}}  & &
+    % \ifnumequal{\value{showperssign}}{0}{%
+    %     \rule[0pt]{0pt}{1.5cm}
+    % }{
+    %     \includegraphics[height=1.5cm]{personal-signature.png}
+    % }\\
 \end{tabularx}
 
 \vspace{0pt plus1fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
@@ -39,7 +45,7 @@
 \newpage
 % оборотная сторона обложки
 \thispagestyle{empty}
-\noindent Работа выполнена на {\thesisInOrganization}.
+\noindent Диссертация подготовлена на {\thesisInOrganization}.
 
 \vspace{0.008\paperheight plus1fill}
 \noindent%
@@ -73,18 +79,21 @@
     \ifnumequal{\value{showopplead}}{0}{\vspace{10\onelineskip plus1fill}}{%
         \textbf{\opponentOneFio,}\par
         \opponentOneRegalia,\par
-        \opponentOneJobPlace,\par
+        \opponentOneJobPlace,
+        \opponentOneJobPost
+
         \vspace{0.01\paperheight}
         \textbf{\opponentTwoFio,}\par
         \opponentTwoRegalia,\par
-        \opponentTwoJobPlace,\par
+        \opponentTwoJobPlace, 
         \opponentTwoJobPost
+
     \ifdefined\opponentThreeFio
         \par
         \vspace{0.01\paperheight}
         \textbf{\opponentThreeFio,}\par
         \opponentThreeRegalia,\par
-        \opponentThreeJobPlace,\par
+        \opponentThreeJobPlace, 
         \opponentThreeJobPost
     \fi
     }
@@ -98,13 +107,14 @@
 \end{tabularx}
 %\vspace{0.008\paperheight plus1fill}
 
-\noindent Защита состоится \defenseDate~на~заседании диссертационного совета \defenseCouncilNumber Московского государственного университета имени М. В. Ломоносова~по адресу: \defenseCouncilAddress.
+\noindent Защита диссертации состоится \defenseDate~на~заседании диссертационного совета \defenseCouncilNumber~Московского государственного университета имени М. В. Ломоносова~по адресу: \defenseCouncilAddress.
 
 %\vspace{0.008\paperheight plus1fill}
 \noindent E-mail: \defenseCouncilPhone.
 
 %\vspace{0.008\paperheight plus1fill}
-\noindent С диссертацией можно ознакомиться в \synopsisLibrary.
+\noindent С диссертацией можно ознакомиться в \synopsisLibrary 
+и на портале \url{https://dissovet.msu.ru/dissertation/номер_страницы/}
 
 %\vspace{0.008\paperheight plus1fill}
 %\noindent Отзывы на автореферат в двух экземплярах, заверенные печатью учреждения, просьба направлять по адресу: \defenseCouncilAddress, ученому секретарю диссертационного совета~\defenseCouncilNumber.
