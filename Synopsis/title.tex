@@ -2,7 +2,7 @@
 
 \thispagestyle{empty}
 \begin{center}
-\thesisOrganization
+\large{\thesisOrganization}
 \end{center}
 
 \vspace{0pt plus1fill}
@@ -17,25 +17,20 @@
     % }\\
 \end{tabularx}
 
-\vspace{0pt plus1fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+\vspace{0pt plus2fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
 \begin{center}
-\textbf {\large \thesisAuthor}
+\textbf {\Large \thesisAuthor}
 \end{center}
 
-\vspace{0pt plus3fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
+\vspace{0pt plus1fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
 \begin{center}
-\textbf {\Large %\MakeUppercase
-\thesisTitle}
+    \huge{\textbf{Правильные семейства функций \\ и порождаемые ими квазигруппы: \\ комбинаторные и алгебраические свойства}}
 
 \vspace{0pt plus3fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
-{\large Специальность \thesisSpecialtyNumber\ \par \thesisSpecialtyTitle}
-
-\ifdefined\thesisSpecialtyTwoNumber
-{\large Специальность \thesisSpecialtyTwoNumber\ "---\par <<\thesisSpecialtyTwoTitle>>}
-\fi
+{\Large \textbf{\thesisSpecialtyNumber \; \thesisSpecialtyTitle}}
 
 \vspace{0pt plus1.5fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
-\Large{Автореферат}\par
+\Large{АВТОРЕФЕРАТ}\par
 \large{диссертации на соискание учёной степени\par \thesisDegree}
 \end{center}
 
@@ -51,20 +46,12 @@
 \noindent%
 \begin{tabularx}{\textwidth}{@{}lX@{}}
     \ifdefined\supervisorTwoFio
-    Научные руководители:   & \supervisorRegalia\par
-                              \ifdefined\supervisorDead
-                              \framebox{\textbf{\supervisorFio}}
-                              \else
-                              \textbf{\supervisorFio}
-                              \fi
+    Научные руководители:   & \textbf{\supervisorFio,}\par
+                              \supervisorRegalia
                               \par
                               \vspace{0.013\paperheight}
-                              \supervisorRegalia\par
-                              \ifdefined\supervisorTwoDead
-                              \framebox{\textbf{\supervisorTwoFio}}
-                              \else
-                              \textbf{\supervisorTwoFio}
-                              \fi
+                              \textbf{\supervisorTwoFio,}\par
+                              \supervisorRegalia
                               \vspace{0.013\paperheight}\\
     \else
     Научный руководитель:   & \supervisorRegalia\par
@@ -107,19 +94,23 @@
 \end{tabularx}
 %\vspace{0.008\paperheight plus1fill}
 
-\noindent Защита диссертации состоится \defenseDate~на~заседании диссертационного совета \defenseCouncilNumber~Московского государственного университета имени М. В. Ломоносова~по адресу: \defenseCouncilAddress.
+%\noindent 
+Защита диссертации состоится \defenseDate~на~заседании диссертационного совета \defenseCouncilNumber~Московского государственного университета имени М. В. Ломоносова~по адресу: \defenseCouncilAddress.
 
 %\vspace{0.008\paperheight plus1fill}
-\noindent E-mail: \defenseCouncilPhone.
+%\noindent 
+E-mail: \defenseCouncilPhone.
 
 %\vspace{0.008\paperheight plus1fill}
-\noindent С диссертацией можно ознакомиться в \synopsisLibrary.
+%\noindent 
+С диссертацией можно ознакомиться в \synopsisLibrary
 
 %\vspace{0.008\paperheight plus1fill}
 %\noindent Отзывы на автореферат в двух экземплярах, заверенные печатью учреждения, просьба направлять по адресу: \defenseCouncilAddress, ученому секретарю диссертационного совета~\defenseCouncilNumber.
 
 %\vspace{0.008\paperheight plus1fill}
-\noindent{Автореферат разослан \synopsisDate.}
+%\noindent{
+Автореферат разослан \synopsisDate.%}
 
 \vspace{0.008\paperheight plus1fill}
 \noindent%
@@ -129,8 +120,7 @@
 r
 @{}}
     Ученый секретарь\par
-    диссертационного совета\par
-    \defenseCouncilNumber,\par
+    диссертационного совета \defenseCouncilNumber,\par
     \defenseSecretaryRegalia
     &
     \ifnumequal{\value{showsecrsign}}{0}{}{%
