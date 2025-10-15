@@ -279,3 +279,6 @@ Thumbs.db
 
 # Documents and other stuff
 *Documents/
+
+# Signatures
+*signature.png

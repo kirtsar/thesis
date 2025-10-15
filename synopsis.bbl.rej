@@ -1,11 +1,10 @@
 --- synopsis.bbl	2025-10-10 08:16:26.713794430 +0300
 +++ synopsis.bbl	2025-10-10 08:06:40.308637293 +0300
-@@ -2740,15 +2740,14 @@
+@@ -2740,14 +2740,13 @@
        \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
        \field{labelnamesource}{author}
        \field{labeltitlesource}{title}
 -      \field{addendum}{\\ EDN: JTVVAY; журнал индексируется в RSCI. Импакт-фактор: 0.385 (РИНЦ); общий объем 0.75~п.~л.. \\ Перевод: \\ Tsaregorodtsev K.D. Properties of proper families of Boolean functions // Discrete Mathematics and Applications.~--- 2022.~--- Vol. 32, No. 5.~--- PP. 369--378. \\ EDN: INXYMW; журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 0.75~п.~л.}
-       \field{internalsortvolume}{33}
        \field{journaltitle}{Дискретная математика}
        \field{langid}{russian}
        \field{title}{О свойствах правильных семейств булевых функций}
@@ -17,12 +16,11 @@
        \range{pages}{12}
        \field{volume}{33}
        \range{volume}{1}
-@@ -2783,15 +2783,14 @@
+@@ -2733,14 +2732,15 @@
        \field{sortinit}{5}
        \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
        \field{labeltitlesource}{title}
 -      \field{addendum}{\\ EDN: WWYSEG; журнал индексируется в RSCI Импакт-фактор: 0.385 (РИНЦ); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л. \\ Перевод: \\ Galatenko A.V., Nosov V.A., Pankratiev A.E., Tsaregorodtsev K.D. Generation of $n$-quasigroups by proper families of functions // Discrete Mathematics and Applications.~--- 2025.~--- Vol. 35, No. 4.~--- PP. 203--217 \\ DOI: https://doi.org/10.4213/dm1749, журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л.}
-       \field{internalsortvolume}{35}
        \field{journaltitle}{Дискретная математика}
        \field{langid}{russian}
        \field{title}{О порождении $n$-квазигрупп с помощью правильных семейств функций}
@@ -30,18 +28,17 @@
        \field{number}{1}
        \range{number}{1}
 -      \field{pages}{35\bibrangedash 53}
-+      \field{pages}{С.~35\bibrangedash 53. \\ EDN: WWYSEG; журнал индексируется в RSCI. Импакт-фактор: 0.385 (РИНЦ); общий объем 1.18~п.л.\\
++      \field{pages}{С.~35\bibrangedash 53. \\ EDN: WWYSEG; журнал индексируется в RSCI Импакт-фактор: 0.385 (РИНЦ); общий объем 1.18~п.л.\\
 +Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы~1 и результаты раздела 6, 29 \%, объем 0.34~п.~л. \\ Перевод: \\ Galatenko A.V., Nosov V.A., Pankratiev A.E., Tsaregorodtsev K.D. Generation of $n$-quasigroups by proper families of functions // Discrete Mathematics and Applications.~--- 2025.~--- vol. 35, no. 4.~--- pp.~203--217. \\ DOI: https://doi.org/10.4213/dm1749, журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 1.18~п.л. \\
 +Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы~1 и результаты раздела 6, 29 \%, объем 0.34~п.~л}
        \range{pages}{19}
        \field{volume}{35}
        \range{volume}{1}
-@@ -2829,17 +2829,16 @@
+@@ -2778,16 +2778,16 @@
        \field{sortinit}{5}
        \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
        \field{labeltitlesource}{title}
 -      \field{addendum}{\\ EDN: FUKEYM; журнал индексируется в RSCI. Импакт-фактор: 0.232 (РИНЦ); общий объем 0.98~п.~л., 25 \%, Царегородцеву К. Д. принадлежат разделы 4,5,6, объем 0.25~п.~л.}
-       \field{internalsortvolume}{14}
        \field{journaltitle}{Математические вопросы криптографии}
 -      \field{langid}{russian}
 +      \field{langid}{english}
@@ -60,12 +57,11 @@
        \range{volume}{1}
        \keyw{recommended,biblioauthorvak,biblioauthor,bibliofull}
      \endentry
-@@ -2862,15 +2862,14 @@
+@@ -2810,14 +2810,13 @@
        \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
        \field{labelnamesource}{author}
        \field{labeltitlesource}{title}
 -      \field{addendum}{\\ Импакт-фактор: 0.117 (РИНЦ); 1.37~п.~л.}
-       \field{internalsortvolume}{28}
        \field{journaltitle}{Интеллектуальные системы. Теория и приложения}
        \field{langid}{russian}
        \field{title}{Об индексе ассоциативности конечных квазигрупп}
@@ -77,12 +73,11 @@
        \range{pages}{22}
        \field{volume}{28}
        \range{volume}{1}
-@@ -2895,13 +2895,12 @@
+@@ -2842,12 +2841,11 @@
        \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
        \field{labelnamesource}{author}
        \field{labeltitlesource}{title}
 -      \field{addendum}{\\ EDN: VTEBFJ; журнал индексируется в Scopus, RSCI. Импакт-фактор: 0.1 (JIF); общий объем 0.375~п.~л.}
-       \field{internalsortvolume}{48}
        \field{journaltitle}{Прикладная дискретная математика}
        \field{langid}{russian}
        \field{title}{О взаимно однозначном соответствии между правильными семействами булевых функций и рёберными ориентациями булевых кубов}
@@ -92,12 +87,11 @@
        \range{pages}{6}
        \field{volume}{48}
        \range{volume}{1}
-@@ -2926,15 +2926,14 @@
+@@ -2872,14 +2870,13 @@
        \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
        \field{labelnamesource}{author}
        \field{labeltitlesource}{title}
 -      \field{addendum}{\\ EDN: EYLHYQ. Импакт-фактор: 0.117 (РИНЦ); общий объем 0.25~п.~л.}
-       \field{internalsortvolume}{24}
        \field{journaltitle}{Интеллектуальные системы. Теория и приложения}
        \field{langid}{russian}
        \field{title}{О соответствии между правильными семействами и реберными ориентациями булевых кубов}
@@ -114,7 +108,6 @@
        \field{labelnamesource}{author}
        \field{labeltitlesource}{title}
 -      \field{addendum}{\\ EDN: ECXXNP; журнал индексируется в Scopus. Импакт-фактор: 0.28 (SJR); общий объем 0.81~п.~л., 38 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство результатов раздела 4, объем 0.31~п.~л.}
-       \field{internalsortvolume}{284}
        \field{journaltitle}{Journal of Mathematical Sciences}
        \field{langid}{english}
        \field{title}{A Criterion of Properness for a Family of Functions}
@@ -137,7 +130,6 @@
        \field{labelnamesource}{author}
        \field{labeltitlesource}{title}
 -      \field{addendum}{\\ EDN: QMBWSF; журнал индексируется в RSCI. Импакт-фактор: 0.232 (РИНЦ); общий объем 1.31~п.~л.}
-       \field{internalsortvolume}{13}
        \field{journaltitle}{Математические вопросы криптографии}
 -      \field{langid}{russian}
 +      \field{langid}{english}
@@ -161,7 +153,6 @@
        \field{labelnamesource}{author}
        \field{labeltitlesource}{title}
 -      \field{addendum}{\\ EDN: NOTNOY. Импакт-фактор: 0.056 (РИНЦ); 0.15~п.~л.}
-       \field{internalsortvolume}{16}
        \field{journaltitle}{Прикладная дискретная математика. Приложение}
        \field{langid}{russian}
        \field{title}{Об одном квазигрупповом алгоритме шифрования, сохраняющего формат}
@@ -176,7 +167,6 @@
        \field{labelnamesource}{author}
        \field{labeltitlesource}{title}
 -      \field{addendum}{\\ EDN: JTVVAY; журнал индексируется в RSCI. Импакт-фактор: 0.385 (РИНЦ); общий объем 0.75~п.~л.. \\ Перевод: \\ Tsaregorodtsev K.D. Properties of proper families of Boolean functions // Discrete Mathematics and Applications.~--- 2022.~--- Vol. 32, No. 5.~--- PP. 369--378. \\ EDN: INXYMW; журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 0.75~п.~л.}
-       \field{internalsortvolume}{33}
        \field{journaltitle}{Дискретная математика}
        \field{langid}{russian}
        \field{title}{О свойствах правильных семейств булевых функций}
@@ -193,7 +183,6 @@
        \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
        \field{labeltitlesource}{title}
 -      \field{addendum}{\\ EDN: WWYSEG; журнал индексируется в RSCI Импакт-фактор: 0.385 (РИНЦ); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л. \\ Перевод: \\ Galatenko A.V., Nosov V.A., Pankratiev A.E., Tsaregorodtsev K.D. Generation of $n$-quasigroups by proper families of functions // Discrete Mathematics and Applications.~--- 2025.~--- Vol. 35, No. 4.~--- PP. 203--217 \\ DOI: https://doi.org/10.4213/dm1749, журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л.}
-       \field{internalsortvolume}{35}
        \field{journaltitle}{Дискретная математика}
        \field{langid}{russian}
        \field{title}{О порождении $n$-квазигрупп с помощью правильных семейств функций}
@@ -201,7 +190,7 @@
        \field{number}{1}
        \range{number}{1}
 -      \field{pages}{35\bibrangedash 53}
-+      \field{pages}{35\bibrangedash 53. \\ EDN: WWYSEG; журнал индексируется в RSCI. Импакт-фактор: 0.385 (РИНЦ); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л. \\ Перевод: \\ Galatenko A.V., Nosov V.A., Pankratiev A.E., Tsaregorodtsev K.D. Generation of $n$-quasigroups by proper families of functions // Discrete Mathematics and Applications.~--- 2025.~--- Vol. 35, No. 4.~--- P.~203--217. \\ DOI: https://doi.org/10.4213/dm1749, журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л}
++      \field{pages}{35\bibrangedash 53. \\ EDN: WWYSEG; журнал индексируется в RSCI Импакт-фактор: 0.385 (РИНЦ); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л. \\ Перевод: \\ Galatenko A.V., Nosov V.A., Pankratiev A.E., Tsaregorodtsev K.D. Generation of $n$-quasigroups by proper families of functions // Discrete Mathematics and Applications.~--- 2025.~--- Vol. 35, No. 4.~--- P.~203--217. \\ DOI: https://doi.org/10.4213/dm1749, журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л}
        \range{pages}{19}
        \field{volume}{35}
        \range{volume}{1}
@@ -210,7 +199,6 @@
        \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
        \field{labeltitlesource}{title}
 -      \field{addendum}{\\ EDN: FUKEYM; журнал индексируется в RSCI. Импакт-фактор: 0.232 (РИНЦ); общий объем 0.98~п.~л., 25 \%, Царегородцеву К. Д. принадлежат разделы 4,5,6, объем 0.25~п.~л.}
-       \field{internalsortvolume}{14}
        \field{journaltitle}{Математические вопросы криптографии}
 -      \field{langid}{russian}
 +      \field{langid}{english}
@@ -228,63 +216,34 @@
        \field{labelnamesource}{author}
        \field{labeltitlesource}{title}
 -      \field{addendum}{\\ EDN: JTVVAY; журнал индексируется в RSCI. Импакт-фактор: 0.385 (РИНЦ); общий объем 0.75~п.~л.. \\ Перевод: \\ Tsaregorodtsev K.D. Properties of proper families of Boolean functions // Discrete Mathematics and Applications.~--- 2022.~--- Vol. 32, No. 5.~--- PP. 369--378. \\ EDN: INXYMW; журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 0.75~п.~л.}
-       \field{internalsortvolume}{33}
++      \field{addendum}{\\ EDN: JTVVAY; журнал индексируется в RSCI. Импакт-фактор: 0.385 (РИНЦ); общий объем 0.75~п.~л.. \\ Перевод: \\ Tsaregorodtsev K.D. Properties of proper families of Boolean functions // Discrete Mathematics and Applications.~--- 2022.~--- Vol. 32, No. 5.~--- P.~369--378. \\ EDN: INXYMW; журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 0.75~п.~л.}
        \field{journaltitle}{Дискретная математика}
        \field{langid}{russian}
        \field{title}{О свойствах правильных семейств булевых функций}
-       \field{year}{2021}
-       \field{number}{1}
-       \range{number}{1}
--      \field{pages}{91\bibrangedash 102}
-+      \field{pages}{91\bibrangedash 102. \\ EDN: JTVVAY; журнал индексируется в RSCI. Импакт-фактор: 0.385 (РИНЦ); общий объем 0.75~п.~л.. \\ Перевод: \\ Tsaregorodtsev K.D. Properties of proper families of Boolean functions // Discrete Mathematics and Applications.~--- 2022.~--- Vol. 32, No. 5.~--- P.~369--378. \\ EDN: INXYMW; журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 0.75~п.~л}
 @@ -6166,7 +6158,7 @@
        \field{sortinit}{6}
        \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
        \field{labeltitlesource}{title}
 -      \field{addendum}{\\ EDN: WWYSEG; журнал индексируется в RSCI Импакт-фактор: 0.385 (РИНЦ); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л. \\ Перевод: \\ Galatenko A.V., Nosov V.A., Pankratiev A.E., Tsaregorodtsev K.D. Generation of $n$-quasigroups by proper families of functions // Discrete Mathematics and Applications.~--- 2025.~--- Vol. 35, No. 4.~--- PP. 203--217 \\ DOI: https://doi.org/10.4213/dm1749, журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л.}
-       \field{internalsortvolume}{35}
++      \field{addendum}{\\ EDN: WWYSEG; журнал индексируется в RSCI Импакт-фактор: 0.385 (РИНЦ); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л. \\ Перевод: \\ Galatenko A.V., Nosov V.A., Pankratiev A.E., Tsaregorodtsev K.D. Generation of $n$-quasigroups by proper families of functions // Discrete Mathematics and Applications.~--- 2025.~--- Vol. 35, No. 4.~--- P.~203--217 \\ DOI: https://doi.org/10.4213/dm1749, журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л.}
        \field{journaltitle}{Дискретная математика}
        \field{langid}{russian}
        \field{title}{О порождении $n$-квазигрупп с помощью правильных семейств функций}
-       \field{year}{2023}
-       \field{number}{1}
-       \range{number}{1}
--      \field{pages}{35\bibrangedash 53}
-+      \field{pages}{35\bibrangedash 53. \\ EDN: WWYSEG; журнал индексируется в RSCI Импакт-фактор: 0.385 (РИНЦ); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л. \\ Перевод: \\ Galatenko A.V., Nosov V.A., Pankratiev A.E., Tsaregorodtsev K.D. Generation of $n$-quasigroups by proper families of functions // Discrete Mathematics and Applications.~--- 2025.~--- Vol. 35, No. 4.~--- P.~203--217. \\ DOI: https://doi.org/10.4213/dm1749, журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л}
 @@ -6374,7 +6366,7 @@
        \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
        \field{labelnamesource}{author}
        \field{labeltitlesource}{title}
 -      \field{addendum}{\\ EDN: JTVVAY; журнал индексируется в RSCI. Импакт-фактор: 0.385 (РИНЦ); общий объем 0.75~п.~л.. \\ Перевод: \\ Tsaregorodtsev K.D. Properties of proper families of Boolean functions // Discrete Mathematics and Applications.~--- 2022.~--- Vol. 32, No. 5.~--- PP. 369--378. \\ EDN: INXYMW; журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 0.75~п.~л.}
-       \field{internalsortvolume}{33}
++      \field{addendum}{\\ EDN: JTVVAY; журнал индексируется в RSCI. Импакт-фактор: 0.385 (РИНЦ); общий объем 0.75~п.~л.. \\ Перевод: \\ Tsaregorodtsev K.D. Properties of proper families of Boolean functions // Discrete Mathematics and Applications.~--- 2022.~--- Vol. 32, No. 5.~--- P.~369--378. \\ EDN: INXYMW; журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 0.75~п.~л.}
        \field{journaltitle}{Дискретная математика}
        \field{langid}{russian}
        \field{title}{О свойствах правильных семейств булевых функций}
-       \field{year}{2021}
-       \field{number}{1}
-       \range{number}{1}
--      \field{pages}{91\bibrangedash 102}
-+      \field{pages}{91\bibrangedash 102. \\ EDN: JTVVAY; журнал индексируется в RSCI. Импакт-фактор: 0.385 (РИНЦ); общий объем 0.75~п.~л.. \\ Перевод: \\ Tsaregorodtsev K.D. Properties of proper families of Boolean functions // Discrete Mathematics and Applications.~--- 2022.~--- Vol. 32, No. 5.~--- P.~369--378. \\ EDN: INXYMW; журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 0.75~п.~л}
 @@ -6449,7 +6441,7 @@
        \field{sortinit}{5}
        \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
        \field{labeltitlesource}{title}
 -      \field{addendum}{\\ EDN: WWYSEG; журнал индексируется в RSCI Импакт-фактор: 0.385 (РИНЦ); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л. \\ Перевод: \\ Galatenko A.V., Nosov V.A., Pankratiev A.E., Tsaregorodtsev K.D. Generation of $n$-quasigroups by proper families of functions // Discrete Mathematics and Applications.~--- 2025.~--- Vol. 35, No. 4.~--- PP. 203--217 \\ DOI: https://doi.org/10.4213/dm1749, журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л.}
-       \field{internalsortvolume}{35}
++      \field{addendum}{\\ EDN: WWYSEG; журнал индексируется в RSCI Импакт-фактор: 0.385 (РИНЦ); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л. \\ Перевод: \\ Galatenko A.V., Nosov V.A., Pankratiev A.E., Tsaregorodtsev K.D. Generation of $n$-quasigroups by proper families of functions // Discrete Mathematics and Applications.~--- 2025.~--- Vol. 35, No. 4.~--- P.~203--217 \\ DOI: https://doi.org/10.4213/dm1749, журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л.}
        \field{journaltitle}{Дискретная математика}
        \field{langid}{russian}
        \field{title}{О порождении $n$-квазигрупп с помощью правильных семейств функций}
-       \field{year}{2023}
-       \field{number}{1}
-       \range{number}{1}
--      \field{pages}{35\bibrangedash 53}
-+      \field{pages}{35\bibrangedash 53. \\ EDN: WWYSEG; журнал индексируется в RSCI. Импакт-фактор: 0.385 (РИНЦ); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л. \\ Перевод: \\ Galatenko A.V., Nosov V.A., Pankratiev A.E., Tsaregorodtsev K.D. Generation of $n$-quasigroups by proper families of functions // Discrete Mathematics and Applications.~--- 2025.~--- Vol. 35, No. 4.~--- P.~203--217. \\ DOI: https://doi.org/10.4213/dm1749, журнал индексируется в WOS, Scopus. Импакт-фактор: 0.3 (JIF); общий объем 1.18~п.л., 29 \%, Царегородцеву К. Д. принадлежат формулировка и доказательство теоремы 1 и результаты раздела 6, объем 0.34~п.~л}
-@@ -6497,7 +6489,7 @@
-       \field{labeltitlesource}{title}
-       \field{addendum}{\\ EDN: FUKEYM; журнал индексируется в RSCI. Импакт-фактор: 0.232 (РИНЦ); общий объем 0.98~п.~л., 25 \%, Царегородцеву К. Д. принадлежат разделы 4,5,6, объем 0.25~п.~л.}
-       \field{journaltitle}{Математические вопросы криптографии}
--      \field{langid}{russian}
-+      \field{langid}{english}
-       \field{title}{Proper families of functions and their applications}
-       \field{year}{2023}
-       \true{nocite}

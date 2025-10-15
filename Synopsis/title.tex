@@ -10,11 +10,11 @@
 \begin{tabularx}{\textwidth}{@{}lXr@{}}%
     & & \large{\textit{На правах рукописи}}\\
     % \IfFileExists{images/logo.pdf}{\includegraphics[height=2.5cm]{logo}}{\rule[0pt]{0pt}{2.5cm}}  & &
-    % \ifnumequal{\value{showperssign}}{0}{%
-    %     \rule[0pt]{0pt}{1.5cm}
-    % }{
-    %     \includegraphics[height=1.5cm]{personal-signature.png}
-    % }\\
+    \ifnumequal{\value{showperssign}}{0}{%
+        \rule[0pt]{0pt}{1.5cm}
+    }{
+        \includegraphics[height=1.5cm]{personal-signature.png}
+    }\\
 \end{tabularx}
 
 \vspace{0pt plus2fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места

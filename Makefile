@@ -92,10 +92,10 @@ dissertation:
 synopsis: TARGET=synopsis
 synopsis: SOURCE=synopsis
 synopsis:
-	rm -f synopsis.bbl
+#	rm -f synopsis.bbl
 	$(compile)
-	patch -p0 <synopsis.bbl.patch
-	$(compile)
+#	patch -p0 <synopsis.bbl.patch
+#	$(compile)
 
 ##! компиляция презентации
 presentation: TARGET=presentation
