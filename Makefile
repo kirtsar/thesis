@@ -97,6 +97,14 @@ synopsis:
 #	patch -p0 <synopsis.bbl.patch
 #	$(compile)
 
+##! компиляция автореферата с подписью
+#synopsis_signed: TARGET=synopsis_signed
+#synopsis_signed: SOURCE=synopsis_signed
+synopsis_signed:
+	pdftk synopsis.pdf cat 1-2 output pages1-2.pdf
+	pdftk synopsis_unsigned.pdf cat 3-end output pages3-end.pdf
+	pdftk pages1-2.pdf pages3-end.pdf cat output synopsis_signed.pdf
+
 ##! компиляция презентации
 presentation: TARGET=presentation
 presentation: SOURCE=presentation

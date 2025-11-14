@@ -1,0 +1,349 @@
+%!TEX root=../nosov.tex
+
+\begin{frame}
+    \begin{myexample}{Правильное семейство}
+        Семейство функций 
+        \[
+            f_i \colon Q^n \to Q, \quad 1 \le i \le n,
+        \]
+        называется правильным, если для любых двух наборов $x \ne y$ найдется индекс~$i$, что $x_i \ne y_i$, но $f_i(x) = f_i(y)$.
+        \footcitetext{nosov98, nosov99,nosov06abel,galatenko2020latin}
+    \end{myexample}
+\end{frame}
+
+
+\begin{frame}{Некоторые примеры правильных семейств}
+    \begin{coloritemize}
+        \item Константные семейства: $f_i \equiv const_i$
+        \pause 
+        \item Треугольные семейства:
+        \[
+            \begin{bmatrix}
+                f_1 \\
+                f_2 \\
+                f_3 \\
+                \vdots \\
+                f_n 
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+                const \\
+                f_{2}(x_{1}) \\
+                f_{3}(x_{1}, x_{2}) \\
+                \vdots \\
+                f_{n}(x_{1}, \ldots, x_{n-1})
+            \end{bmatrix}
+        \]
+    \end{coloritemize}
+    \footcitetext{nosov06abel}
+\end{frame}
+
+
+\section[Булев случай]{Эквивалентности в булевом случае}
+
+\begin{frame}{Случай $k=2$}
+    Посмотрим несколько (не все!) эквивалентных определений для случая $k=2$:
+    \begin{coloritemize}
+        \item одностоковые ориентации булевых кубов,
+        \item булевы сети с наследственно единственной неподвижной точкой,
+        \item отображение с несамодвойственными проекциями.
+    \end{coloritemize}
+\end{frame}
+
+
+\begin{frame}{Одностоковые ориентации ($\uso$)}
+    \begin{myexample}{Булев куб  $\BB_n$}
+        \begin{coloritemize}
+            \item вершины: $V = \{ \alpha \in \EE_2^n \}$;
+            \item ребра: $\{\alpha, \beta \} \in E \Leftrightarrow \rho(\alpha, \beta) = 1$ (расстояние Хэмминга).
+            \footcitetext{yablonski}
+        \end{coloritemize}
+    \end{myexample}
+    \pause
+    \begin{myexample}{Ориентация с единственным стоком $\uso$}
+        \textbf{Ориентация с единственным стоком} (unique sink orientation, $\uso$) куба $\BB_n$~--- ориентированный граф, построенный по $\BB_n$ со следующим характеристическим свойством: в каждом подкубе $\BB_n$ существует единственный сток.
+        \footcitetext{szabo2001, USOphd}
+    \end{myexample}
+    Такие геометрические конструкции исследовались в связи с задачами оптимизации.
+\end{frame}  
+
+  
+\begin{frame}{$\uso$: один пример}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.45\linewidth]{USO.png}
+        \caption{Одностоковая ориентация трехмерного булева куба $\BB_3$}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}%{Граф семейства $\Gamma(F)$}
+    Пусть $\ff$~--- семейство булевых функций.
+    \begin{myexample}{Граф семейства $\Gamma_{\ff}$}
+        \begin{coloritemize}
+            \item Вершины: $V = \{ \alpha \in \EE_2^n \}$.
+            \item Пусть $\alpha \ne \beta$, $\rho(\alpha, \beta) = 1$, $\alpha_i \ne \beta_i$, добавим ориентированное ребро $(\beta, \alpha) \in E$ тогда и только тогда, когда $f_i(\alpha) = \alpha_i$.
+        \end{coloritemize}
+    \end{myexample}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.45\linewidth]{edge.png}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Стоки графа $\Gamma_{\ff}$}
+    \begin{mytheorem}{Неподвижные точки булевых семейств}
+        У правильного семейства булевых функций всегда существует единственная неподвижная точка.
+    \end{mytheorem}
+    \pause 
+    \begin{coloritemize}
+        \item Неподвижная точка $\alpha$ отображения $x \to \ff(x)$ соответствует стоку в графе $\Gamma_{\ff}$: 
+        \(
+            f_i(\alpha) = \alpha_i, \quad 1 \le i \le n.
+        \)
+        \pause 
+        \item Ориентации подкубов в $\Gamma_{\ff}$ задаются проекциями $\ff'$ семейства $\ff$.
+    \end{coloritemize}
+    \begin{mytheorem}{Взаимно-однозначное соответствие}
+        Граф $\Gamma_{\ff}$ семейства булевых функций $\ff$ является одностоковой ориентацией ($\uso$) тогда и только тогда, когда $\ff$~--- правильное семейство.
+    \end{mytheorem}
+\end{frame}
+
+
+\begin{frame}{$\uso$ и правильность: два описания одного объекта}  
+    \begin{coloritemize}
+        \item Существует взаимно-однозначное соответствие между \textquote{алгебраическим} (определение правильности) и \textquote{геометрическим} ($\uso$) описаниями.
+        \pause 
+        \item Это позволяет переводить результаты с одного \textquote{языка} на другой (в частности, с помощью геометрической интуиции).
+        \pause 
+        \item Некоторые примеры переноса: вероятностный алгоритм порождения правильных семейств с помощью процедуры MCMC~\footcite{USOphd, galatenko21generation}, оценка на число булевых правильных семейств~\footcite{dm21}, новые классы правильных семейств: рекурсивно треугольные семейства, локально треугольные семейства.
+    \end{coloritemize}    
+\end{frame}
+
+
+\begin{frame}{Пример переноса}
+    Пусть $T(n)$ ($\Delta(n)$)~--- число \textbf{булевых} правильных (треугольных) семейств размера~$n$.
+    \begin{mypropos}{Оценка на число булевых правильных семейств}
+        \[
+            n^{A \cdot 2^n} \le T(n) \le n^{B \cdot 2^n},
+        \]
+        где $A$, $B$~--- некоторые положительные константы.
+        \footcitetext{numberUSO}
+    \end{mypropos}
+    \pause 
+    \begin{mytheorem}{Булевых треугольных семейств экспоненциально мало}
+        \[
+            \frac{\Delta(n)}{T(n)} = o \Big(\frac{1}{n^{D \cdot 2^n}} \Big) \text{ при } n \to \infty,
+        \]
+        для некоторого $D > 0$.
+        Почти все булевы правильные семейства не являются треугольными.
+    \end{mytheorem}
+\end{frame}
+
+
+% \begin{frame}{Рекурсивная треугольность}
+%     \begin{myexample}{Рекурсивно треугольное семейство}
+%         Семейство $\ff \colon \EE_k^n \to \EE_k^n$ со свойством: существует $i$, такое что $f_i \equiv const_i$, и $\proj_a^i(\ff)$ рекурсивно треугольны для всех $a \in \EE_k$.
+%     \end{myexample}
+%     Обобщение понятия рекурсивной ориентации булева куба~\footnote{\cite[A141770]{oeis}}.
+%     \pause
+%     Треугольные семейства являются рекурсивно треугольными.
+%     \pause
+%     \begin{mytheorem}{О правильности рекурсивно треугольных семейств}
+%         Рекурсивно треугольные семейства являются правильными.
+%     \end{mytheorem}
+%     \pause 
+%     Теорема доказывается через локально треугольные семейства, о них позднее.
+% \end{frame}
+
+
+% \begin{frame}{Рекуррентное соотношение}
+%     \begin{mytheorem}{Рекурсивно треугольных семейств мало}
+%         Пусть $\Delta^{\rec}_k(n)$~--- число рекурсивно треугольных семейств размера~$n$ над $k$-значной логикой.
+%         Тогда выполняется равенство:
+%         \[
+%             \Delta^{\rec}_k(n) = \sum_{j=1}^{n} (-1)^{j+1} \cdot k^j \cdot {n \choose j} \Delta^{\rec}_k(n-j)^{k^j}.
+%         \]
+
+%         Доля булевых рекурсивно треугольных семейств размера $n$ в классе всех булевых правильных семейств размера $n$ стремится к 0 при $n \to \infty$.
+%     \end{mytheorem}
+%     Обобщение результата для рекурсивной ориентации булева куба~\footnote{\cite[A141770]{oeis}}.
+% \end{frame}
+
+
+\begin{frame}{Неподвижные точки правильного семейства}
+    \begin{mytheorem}{О неподвижных точках}
+        Булево семейство $\ff$ является правильным тогда и только тогда, когда семейство $\ff$ и каждая из его проекций имеет единственную неподвижную точку.
+    \end{mytheorem}
+    \pause 
+
+    Критерий имеет обобщение~\footcite{galatenko21criterion} на случай $k>2$, но формулируется чуть более сложно.
+
+    %В общем случае: семейство $\ff \colon \EE_k^n \to \EE_k^n$ является правильным тогда и только тогда, когда для любой перекодировки $\ff$ все её проекции имеют единственную неподвижную точку~\footcite{galatenko21criterion}.
+
+    \pause 
+    В булевом случае свойство единственности неподвижной точки дает ещё одно характеристическое свойство правильных семейств, которое изучалось в контексте математической биологии (экспрессия генов~\footcite{thomas1991regulatory, richard2015fixed, ruet2015asynchronous, ruet2016local}).
+\end{frame}
+
+
+\begin{frame}%{$\hupf$-сети}
+    \begin{myexample}{Булевы сети с наследственно единственной неподвижной точкой}
+        $\hupf$-сеть (сеть с наследственно единственной неподвижной точкой, hereditarily unique fixed point network)~--- булево семейство $\ff$ со следующим свойством: $\ff$ и все его проекции имеют единственную неподвижную точку (как отображения $\EE_2^n \to \EE_2^n$).
+        \footcitetext{richard2015fixed}
+    \end{myexample}
+    \pause 
+    \begin{mytheorem}{Правильные семейства $\leftrightarrow$ $\hupf$-сети}
+        Булево семейство $\ff$ является правильным $\Leftrightarrow$ $\ff$ задает $\hupf$-сеть. 
+    \end{mytheorem}
+    \pause
+    Соответствие между булевыми правильными семействами и $\hupf$-сетями позволяет перенести (и обобщить) часть результатов, полученных в контексте изучения динамики таких сетей, на правильные семейства.
+\end{frame}
+
+
+% \begin{frame}
+%     Пусть $\ff$~--- семейство размера $n$.
+%     \begin{myexample}{{Локальный граф взаимодействий $G(\ff, \alpha)$}}
+%         \begin{coloritemize}
+%         \item Вершины: $V = \{1, \ldots, n\}$.
+%         \item Ребра: $i \to j$ тогда и только тогда, когда $f_j$ существенно зависит от $x_i$  \textquote{локально} в точке $a$:
+%         \[
+%             f_j(\alpha_1, \ldots, \alpha_i, \ldots, \alpha_n) \ne f_j(\alpha_1, \ldots, \alpha_i \oplus 1, \ldots, \alpha_n).
+%         \]
+%         \end{coloritemize}
+%     \end{myexample}
+%     \pause 
+%     \begin{mypropos}{Ациклические локальные графы}
+%         Пусть $G(\ff, \alpha)$~--- ациклический для каждой точки $\alpha \in \EE_2^n$, тогда $\ff$~--- $\hupf$-сеть.
+%         \footcitetext{shih2005combinatorial}
+%     \end{mypropos}
+% \end{frame}
+
+
+% \begin{frame}{Локальный граф взаимодействий-2}
+%     \begin{myexample}{Локально треугольные семейства}
+%         $\ff \colon \EE_k^n \to \EE_k^n $ локально треугольно, если $G(\ff, \alpha)$ ацикличен для каждой точки $\alpha \in \EE_k^n$, где локальная зависимость $f$ от $x_i$ в точке $\alpha$ определяется неравенством:
+%         \[
+%             \exists b \colon f(\alpha_1, \ldots, \alpha_i, \ldots, \alpha_n) \ne f(\alpha_1, \ldots, b, \ldots, \alpha_n).
+%         \]
+%     \end{myexample}
+%     \pause 
+%     Локально треугольные семейства являются правильными~--- обобщение результата работы~\cite{shih2005combinatorial} на $k$-значную логику.
+% \end{frame}
+
+
+\begin{frame}{Характеризация через несамодвойственные проекции}
+    \begin{myexample}{Самодвойственное семейство}
+        Отображение $\ff \colon \EE_2^n \to \EE_2^k$ самодвойственно, если для любого набора $x \in \EE_2^n$ выполняется свойство $\ff(\overline{x}) = \overline{\ff(x)}$.
+    \end{myexample}
+    \pause 
+    \begin{mytheorem}{О несамодвойственности проекций} 
+        Семейство $\ff$ булевых функций правильно тогда и только тогда, когда каждая из его проекций 
+        \[
+            \proj^{a_1, \ldots, a_k}_{i_1, \ldots, i_k}(\ff)
+        \] 
+        \textbf{не является} самодвойственным булевым отображением.
+    \end{mytheorem}
+    По сути~--- следствие результата из~\cite{richard2015fixed}.
+\end{frame}
+
+
+\begin{frame}{Сложность распознавания правильности}
+    \begin{coloritemize}
+        \item В общем случае проверка правильности является сложной задачей: если семейство задано в форме КНФ, то задача проверки правильности coNP-полна~\footcite{nosov98}.
+        \pause 
+        \item В определенных случаях задача проверки правильности может быть упрощена, в частности, за счет вида графа существенной зависимости~\footcite{rykov14}.
+        \pause 
+        \item Алгоритм проверки правильности булева семейства требует порядка $\Theta(4^n)$ операций вычисления правильного семейства на двоичном наборе $x$ (проверка по определению правильности).
+        \pause 
+        \item За счет критерия несамодвойственности можно предложить адаптацию алгоритма~\footcite{bosshard2017pseudo} со сложностью $\Theta(3^n)$, проверяющего, что ориентация $\Gamma_{\ff}$, задаваемая семейством $\ff$, является одностоковой.
+    \end{coloritemize}
+\end{frame}
+
+
+
+\section[$k$-значная логика]{Эквивалентности в случае $k$-значной логики}
+
+\begin{frame}{Случай $k \ge 2$}
+    \begin{coloritemize}
+        \item Регулярные отображения.
+        \item Клики в графах особого вида.
+    \end{coloritemize}
+\end{frame}
+
+\begin{frame}
+    \begin{mytheorem}{Критерий в терминах регулярности}
+    \label{thm:regularity}
+        Семейство $\ff_n$ на $\QQQ$ является правильным тогда и только тогда, когда для любого набора отображений 
+        \(
+            \psi_i \colon Q_i \to Q_i, \; 1 \le i \le n,
+        \)
+        следующее отображение из $\QQQ$ в себя биективно:
+        \[
+            \xx = 
+            \begin{bmatrix}
+                x_1\\
+                \vdots \\
+                x_n \\
+            \end{bmatrix} 
+            \to
+            \xx \circ \Psi(\ff_n(\xx))
+            = 
+            \begin{bmatrix}
+                x_1 \circ_1 \psi_1(f_1(x_1, \ldots, x_n)) \\
+                \vdots \\
+                x_n \circ_n \psi_n(f_n(x_1, \ldots, x_n))
+            \end{bmatrix}, \; x_i \in Q_i.
+        \]
+    \end{mytheorem}
+    Критерий обобщает известный результат~\footcite{nosov06abel} для абелевых групп.
+\end{frame}
+
+
+\begin{frame}{Случай $\FF_p$}
+    \begin{mytheorem}{Регулярность для простых полей}
+        Семейство функций $\ff$ на $\FF_p^n$, где $\FF_p$~--- простое поле, является правильным тогда и только тогда, когда для любых $a_i \in \FF_p$ отображение
+        \[
+            \begin{bmatrix}
+                x_1\\
+                \vdots \\
+                x_n \\
+            \end{bmatrix} 
+            \to
+            \begin{bmatrix}
+                x_1 + a_1 \cdot f_1(x_1, \ldots, x_n)\\
+                \vdots \\
+                x_n + a_n \cdot f_n(x_1, \ldots, x_n)
+            \end{bmatrix}, \; x_i \in \FF_p
+        \]
+        является биекцией $\FF_p^n \to \FF_p^n$.
+    \end{mytheorem}
+\end{frame}
+
+
+\begin{frame}{Кликовое представление правильных семейств}
+    \begin{coloritemize}
+        \item Правильные семейства находятся во взаимно-однозначном соответствии с кликами некоторым образом построенного графа (\textquote{обобщенный граф Келлера}).
+        \pause
+        \item Для $k=2$ перенос из теории $\mathsf{USO}$-ориентаций~\footcite{borzechowski2022universal}, для $k > 2$~--- авторское обобщение.
+        \pause
+        \item Обобщенный граф Келлера $G(k, n)$: $V = \EE_{k^2}^n$, 
+        \[
+            \{v, w\} \in E \leftrightarrow \exists i, \, 1 \le i \le n \colon v_i \equiv w_i \text{ mod } \; k, \; v_i \ne w_i.
+        \]
+        \pause
+        \item Графы примечательны тем, что в случае $k = 2$ некоторым образом кодируют неэквивалентные замощения пространства гиперкубами~\footcite{sikiric2007cube, mathew2013enumerating}.
+    \end{coloritemize}
+    \pause
+    \begin{mytheorem}{Клики и правильные семейства}
+        Каждой клике на $k^n$ вершинах в графе $G(k, n)$ можно поставить в биективное соответствие некоторое правильное семейство $\ff_n$ размера $n$ на $\EE_k^n$.
+    \end{mytheorem}
+\end{frame}
+
+
+
+\begin{frame}
+    \begin{center}
+        {\Huge Спасибо за внимание!}
+    \end{center}
+\end{frame}

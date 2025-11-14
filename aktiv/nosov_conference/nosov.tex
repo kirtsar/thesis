@@ -2,7 +2,7 @@
 % !TEX encoding = UTF-8 Unicode
 
 %%% PAGE DIMENSIONS 16:9
-\documentclass[notheorems, aspectratio=169]{beamer}
+\documentclass[11pt, notheorems, aspectratio=169]{beamer}
 
 %%% TEXT FEATURES
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
@@ -12,7 +12,6 @@
 \usepackage{amsmath} % special math symbols
 \usepackage{amssymb} % some more special symbols
 \usepackage{color, colortbl}
-\usepackage{enumitem}
 \setbeamertemplate{navigation symbols}{}
 \renewcommand{\arraystretch}{1.5}
 \usefonttheme{serif}
@@ -24,7 +23,7 @@
 {
   \usetheme{AnnArbor}
   \usecolortheme{beaver}
-  \setbeamercovered{transparent}
+  %\setbeamercovered{transparent}
 }
 \setbeamercolor{frametitle}{use=structure, bg=gray-background, fg=dark}
 \setbeamercolor{palette primary}{bg=dark, fg=white}
@@ -41,9 +40,12 @@
     \end{beamercolorbox}
 }
 
+\graphicspath{{../images/}}
+\setbeamerfont{footnote}{size=\tiny}
+
 % colored theorem blocks
-\setbeamercolor{block title}{use=structure,fg=white,bg=medium}
-\setbeamercolor{block body}{use=structure,fg=black,bg=light!10}
+%\setbeamercolor{block title}{use=structure,fg=white,bg=medium}
+%\setbeamercolor{block body}{use=structure,bg=light!10}
 
 % colored tables
 \usepackage{colortbl}
@@ -68,15 +70,51 @@
 %%%     \item[{$\color{medium}\blacksquare$}]                               %%%
 %%% \end{coloritemize}                                                      %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\definecolor{Gray}{gray}{0.9}
 % bordered text
 \usepackage[most]{tcolorbox}
+\newtcolorbox{myblock}[1][]{
+    enhanced jigsaw,
+    colback=gray-background,
+    colbacktitle=gray-background,
+    coltitle=black,
+    %colframe=blue!85!white!90!,%
+    %size=small,%
+    %boxrule=1pt,%
+    halign title=flush left,%
+    %coltitle=blue,%
+    breakable,%
+    drop fuzzy shadow=black!70!white,%
+    left=0pt,
+    titlerule=0pt,
+    top=1pt,
+    bottom=0pt,
+    enlarge left by=-0.1cm,
+    grow to right by=0.21cm,
+    frame empty,
+    borderline={0.3mm}{0mm}{dark},
+    title={\textbf{#1}}
+}
+
+%\newcommand{\mycitation}[2]{\myblock{\textbf{#1}}{#2}}
+
+\newtcolorbox{mybox}[1][]{
+    colback=white,
+    colbacktitle=white,
+    coltitle=red!70!black,
+    colframe=red!70!black,
+    boxrule=1pt,
+    titlerule=0pt,
+    arc=15pt,
+    title={\textbf{#1}}
+}
+
 
 \newtcolorbox{mytheorem}[1]{
     enhanced jigsaw,
-    colback=red!5!white,
-    colframe=red!75!black,fonttitle=\bfseries,
-    colbacktitle=red!85!black,enhanced,
+    colback=blue!5!white,
+    colframe=blue!75!black,fonttitle=\bfseries,
+    colbacktitle=blue!65!black,enhanced,
     %size=small,%
     %boxrule=1pt,%
     halign title=flush left,%
@@ -166,6 +204,10 @@
 %%% DECORATIVE ELEMENTS
 \usepackage{pdfpages} % add title as pdf file
 
+% date
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+\date{\today}
+
 % logo
 \logo{
 \begin{tikzpicture}[overlay,remember picture]
@@ -190,19 +232,27 @@
 \theoremstyle{named}
 \newtheorem*{namedtheorem}{Теорема}
 
-\graphicspath{{../images/}}
-\setbeamerfont{footnote}{size=\tiny}
 
-%\usepackage[c]{beamerfontthemestructureitalicserif}
-
-
-%\usepackage[style=verbose,backend=biber]{biblatex}
-\usepackage[style=authortitle-comp,backend=bibtex]{biblatex}
+% Оформление библиографии по ГОСТ
+% \usepackage[%
+%   backend=bibtex, %подключение пакета biber
+%   bibstyle=style=authortitle-comp, %подключение одного из четырех главных стилей biblatex-gost
+%   citestyle=numeric-comp, %подключение стиля
+%   language=auto, %указание сортировки языков
+%   sorting=none, %тип сортировки в библиографии
+%   doi=true,
+%   eprint=false,
+%   isbn=false,
+%   dashed=true,
+%   url=true
+% ]{biblatex}
+\usepackage[style=authortitle-comp,backend=biber]{biblatex}
 \addbibresource{../../biblio/external.bib}
 \addbibresource{../../biblio/author.bib}
 \addbibresource{../matis_biblio.bib}
 
 
+% USER-DEFINED PACKAGES
 
 \usepackage{csquotes}
 
@@ -239,35 +289,15 @@
 \newcommand{\hupf}{\mathsf{HUFP}}
 \newcommand{\divides}{\mid}
 
-% команды 
-\newcommand{\proj}{\Pi}
-\newcommand{\inv}{\mathsf{inv}}
-\newcommand{\Img}{\mathsf{Im}}
-\newcommand{\fib}{\mathsf{Fib}}
-\newcommand{\lucas}{\mathsf{Lucas}}
 \newcommand{\uso}{\mathsf{USO}}
+\newcommand{\proj}{\Pi}
 
 
-% криптография
-\newcommand{\sample}{\gets^{\mathcal{U}}}
-\newcommand{\Dom}{\mathbf{Dom}}
-\newcommand{\Keys}{\mathbf{Keys}}
-\newcommand{\Twk}{\mathbf{Twk}}
-\newcommand{\enc}{\mathsf{Enc}}
-\newcommand{\dec}{\mathsf{Dec}}
-\newcommand{\gen}{\mathsf{Gen}}
-\newcommand{\fpe}{\mathsf{FPE}}
-
-\newcommand{\defn}{\textbf{Определение}}
-\newcommand{\thm}{\textbf{Теорема}}
-\newcommand{\propos}{\textbf{Утверждение}}
-\newcommand{\exa}{\textbf{Пример}}
-\newcommand{\rema}{\textbf{Замечание}}
-\newcommand{\lem}{\textbf{Лемма}}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title[Эквивалентные определения правильности]{Об эквивалентных определениях правильности}
+\subtitle{Научная конференция, посвященная 85-летию Валентина Александровича Носова}
+\author{К.Д. Царегородцев}
+\institute[МГУ]{МГУ им. М.В. Ломоносова}
+\date{27 октября 2025 г.}
 
 
 \AtBeginSection[]
@@ -278,10 +308,6 @@
     \end{frame}
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\input{titlepage}
-
 \begin{document}
 
 \begin{frame}[plain]
@@ -289,18 +315,13 @@
     \maketitle
 \end{frame}
 
-%%% TITLE
-%\includepdf[pages=1]{title.pdf}
+\include{source.tex}
 
-\input{pres.source.tex}
+% %%% BIBLIOGRAPHY
+\begin{frame}[allowframebreaks]{Список литературы}
+    \printbibliography
+\end{frame}
 
-%%% LAST SLIDE
-%\includepdf[pages=1]{final.pdf}
-
-%%% BIBLIOGRAPHY
-% \begin{frame}[allowframebreaks]{Список литературы}
-%     \printbibliography
-% \end{frame}
 
 \end{document}
 
