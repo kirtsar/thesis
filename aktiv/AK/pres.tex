@@ -1,0 +1,362 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+%%% PAGE DIMENSIONS 16:9
+\documentclass[10pt, notheorems, aspectratio=169]{beamer}
+
+%%% TEXT FEATURES
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+\usepackage[T2A]{fontenc} % font encoding
+\usepackage[russian]{babel} % languages
+\usepackage{amsfonts} % for natural, rational, etc numbers
+\usepackage{amsmath} % special math symbols
+\usepackage{amssymb} % some more special symbols
+\usepackage{color, colortbl}
+\usepackage{enumitem}
+\setbeamertemplate{navigation symbols}{}
+\renewcommand{\arraystretch}{1.5}
+\usefonttheme{serif}
+
+%%% COLORIZING FEATURES
+
+% color theme settings
+\mode<presentation>
+{
+  \usetheme{AnnArbor}
+  \usecolortheme{beaver}
+  \setbeamercovered{transparent}
+}
+\setbeamercolor{frametitle}{use=structure, bg=gray-background, fg=dark}
+\setbeamercolor{palette primary}{bg=dark, fg=white}
+\setbeamercolor{palette secondary}{bg=light, fg=white}
+\setbeamercolor{palette tertiary}{bg=medium, fg=white}
+
+\definecolor{Gray}{gray}{0.9}
+
+
+% frame title settings
+\setbeamertemplate{frametitle}
+{
+    \nointerlineskip
+    \begin{beamercolorbox}[sep=0.3cm,ht=1.8em,wd=\paperwidth]{frametitle}
+        \strut\textbf{\insertframetitle}\strut
+        \vskip-1ex%
+    \end{beamercolorbox}
+}
+
+% colored theorem blocks
+\setbeamercolor{block title}{use=structure,fg=white,bg=medium}
+\setbeamercolor{block body}{use=structure,fg=black,bg=light!10}
+
+% colored tables
+\usepackage{colortbl}
+\usepackage{tabularray}
+
+% colored captions
+\usepackage{caption}
+\DeclareCaptionLabelFormat{mycaption}{\usebeamercolor[medium]{caption name} #1 #2: }
+\captionsetup[figure]{labelformat=mycaption, labelsep=none, labelfont=bf}
+\captionsetup[table]{labelformat=mycaption, labelsep=none, labelfont=bf}
+
+% colored lists (light-blue squares)
+\usepackage{enumitem, xcolor}
+\newlist{coloritemize}{itemize}{1}
+\setlist[coloritemize]{label=\textcolor{light}{$\blacksquare$}}
+\colorlet{itemizecolor}{.}% Default colour for \item in itemizecolor
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% To use a different custom template in the {coloritemize} environment,   %%%
+%%% set item parameters:                                                    %%%
+%%%                                                                         %%%
+%%% \begin{coloritemize}                                                    %%%
+%%%     \item[{$\color{medium}\blacksquare$}]                               %%%
+%%% \end{coloritemize}                                                      %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% bordered text
+\usepackage[most]{tcolorbox}
+
+\newtcolorbox{mypropos}[1]{
+    enhanced jigsaw,
+    colback=blue!5!white,
+    colframe=blue!75!black,fonttitle=\bfseries,
+    colbacktitle=blue!65!black,enhanced,
+    %size=small,%
+    %boxrule=1pt,%
+    halign title=flush left,%
+    %coltitle=blue,%
+    breakable,%
+    drop fuzzy shadow=black!70!white,%
+    left=0pt,
+    titlerule=0pt,
+    top=1pt,
+    bottom=0pt,
+    enlarge left by=-0.1cm,
+    grow to right by=0.21cm,
+    frame empty,
+    borderline={0.3mm}{0mm}{dark},
+    fonttitle = \bfseries,
+    title={#1}
+}
+
+
+\newtcolorbox{myexample}[1]{
+    enhanced jigsaw,
+    colback=blue!5!white,
+    colframe=blue!75!black,fonttitle=\bfseries,
+    colbacktitle=blue!65!black,enhanced,
+    %size=small,%
+    %boxrule=1pt,%
+    halign title=flush left,%
+    %coltitle=blue,%
+    breakable,%
+    drop fuzzy shadow=black!70!white,%
+    left=0pt,
+    titlerule=0pt,
+    top=1pt,
+    bottom=0pt,
+    enlarge left by=-0.1cm,
+    grow to right by=0.21cm,
+    frame empty,
+    borderline={0.3mm}{0mm}{dark},
+    fonttitle = \bfseries,
+    title={#1}
+}
+
+%%% CUSTOM COLORS
+% presentation pack
+\definecolor{light}{RGB}{34, 187, 221}
+\definecolor{medium}{RGB}{0, 85, 170}
+\definecolor{dark}{RGB}{10, 32, 64}
+\definecolor{gray-background}{RGB}{237, 237, 237}
+\definecolor{dark-gray}{RGB}{167, 176, 184}
+
+% plots pack 
+\definecolor{myorange}{RGB}{221, 69, 34}
+\definecolor{mymagenta}{RGB}{162, 34, 221}
+\definecolor{mygreen}{RGB}{33, 221, 34}
+
+%%% IMAGES AND PLOTS
+\usepackage{tikz}
+\usepackage[]{graphicx} % Required for including images
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\pgfplotsset{every axis legend/.append style={anchor=north east, font=\footnotesize}} %legend style
+
+%%% DECORATIVE ELEMENTS
+\usepackage{pdfpages} % add title as pdf file
+
+% date
+\setbeamertemplate{page number in head/foot}[totalframenumber]
+\date{16 октября 2025 г.}
+
+% logo
+\logo{
+\begin{tikzpicture}[overlay,remember picture]
+\node[left=0cm] at (current page.-26){
+    \includegraphics[width=0.7cm]{AKTIV_NEW LOGO.png}
+};
+\end{tikzpicture}
+}
+
+%%% READ MORE
+%%% https://www.cpt.univ-mrs.fr/~masson/latex/Beamer-appearance-cheat-sheet.pdf
+%%% ___________________________________________________________________________
+
+\newtheorem{definition}{Определение}
+\newtheorem{theorem}{Теорема}
+\newtheorem{lemma}{Лемма}
+\newtheorem{corollary}{Следствие}
+\newtheorem{prop}{Утверждение}
+\newtheorem{example}{Пример}
+
+\newtheoremstyle{named}{}{}{\itshape}{}{\bfseries}{.}{.5em}{\thmnote{#3's }#1}
+\theoremstyle{named}
+\newtheorem*{namedtheorem}{Теорема}
+
+\graphicspath{{../images/}}
+\setbeamerfont{footnote}{size=\tiny}
+
+%\usepackage[c]{beamerfontthemestructureitalicserif}
+
+%%%%%%% FONTS %%%%%%%%%%%%%%%%
+
+% \setsansfont{FiraSans-Light}[
+% Path = ./styles/fonts/,
+% Extension = .otf,
+% BoldFont=FiraSans-Regular,
+% ItalicFont=FiraSans-LightItalic,
+% BoldItalicFont=FiraSans-Italic
+% ]
+% % Courier New
+% \setmonofont{FiraMono-Medium}[
+% Path = ./styles/fonts/,
+% Extension = .otf,
+% BoldFont=FiraMono-Bold,
+% ItalicFont=FiraMono-Medium,
+% BoldItalicFont=FiraMono-Bold,
+% ]
+
+% \newfontfamily{\cyrillicfont}{FiraMono-Medium}[
+% Path = ./styles/fonts/,
+% Extension = .otf,
+% BoldFont=FiraMono-Bold,
+% ItalicFont=FiraMono-Medium,
+% BoldItalicFont=FiraMono-Bold,
+% ]
+
+% \usepackage{unicode-math}
+% \setmathfont{STIX2Math}[
+% Path = ./styles/fonts/,
+% Extension = .otf
+% ]
+
+
+%\usepackage[style=verbose,backend=biber]{biblatex}
+\usepackage[style=authortitle-comp,backend=bibtex]{biblatex}
+\addbibresource{../../biblio/external.bib}
+\addbibresource{../../biblio/author.bib}
+\addbibresource{../matis_biblio.bib}
+
+
+
+\usepackage{csquotes}
+
+
+
+%%%%%%%%%%%%% ADDITIONAL COMMANDS %%%%%%%%%%%%%%%
+
+% множества
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\BB}{\mathbf{B}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\FF}{\mathbb{F}}
+% группы, квазигруппы
+\newcommand{\SSS}{\mathcal{S}}
+\newcommand{\sprop}{\mathcal{S}^{\mathsf{prop}}}
+\newcommand{\QQQ}{Q_1 \times \ldots \times Q_n}
+\newcommand{\GGG}{G}
+
+% функции и аргументы
+\newcommand{\ff}{\mathcal{F}}
+\newcommand{\gf}{\mathcal{G}}
+\newcommand{\hf}{\mathcal{H}}
+\renewcommand{\ss}{\mathbf{s}}
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\yy}{\mathbf{y}}
+%\newcommand{\zz}{\mathbf{z}}
+\newcommand{\uu}{\mathbf{u}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\ww}{\mathbf{w}}
+\newcommand{\dd}{\partial}
+\newcommand{\loc}{\mathsf{loc}}
+\newcommand{\rec}{\mathsf{rec}}
+\newcommand{\hupf}{\mathsf{HUFP}}
+\newcommand{\divides}{\mid}
+
+% команды 
+\newcommand{\proj}{\Pi}
+\newcommand{\inv}{\mathsf{inv}}
+\newcommand{\Img}{\mathsf{Im}}
+\newcommand{\fib}{\mathsf{Fib}}
+\newcommand{\lucas}{\mathsf{Lucas}}
+\newcommand{\uso}{\mathsf{USO}}
+
+
+% криптография
+\newcommand{\sample}{\gets^{\mathcal{U}}}
+\newcommand{\Dom}{\mathbf{Dom}}
+\newcommand{\Keys}{\mathbf{Keys}}
+\newcommand{\Twk}{\mathbf{Twk}}
+\newcommand{\enc}{\mathsf{Enc}}
+\newcommand{\dec}{\mathsf{Dec}}
+\newcommand{\gen}{\mathsf{Gen}}
+\newcommand{\fpe}{\mathsf{FPE}}
+
+\newcommand{\defn}{\textbf{Определение}}
+\newcommand{\thm}{\textbf{Теорема}}
+\newcommand{\propos}{\textbf{Утверждение}}
+\newcommand{\exa}{\textbf{Пример}}
+\newcommand{\rema}{\textbf{Замечание}}
+\newcommand{\lem}{\textbf{Лемма}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\AtBeginSection[]
+{
+    \begin{frame}
+        \frametitle{Содержание}
+        \tableofcontents[currentsection]
+    \end{frame}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{titlepage}
+
+\begin{document}
+
+
+\begin{frame}[plain]
+    \setbeamercolor{title}{bg=medium, fg=white}
+    \maketitle
+\end{frame}
+
+
+\begin{frame}{Содержание доклада}
+    \setbeamertemplate{section in toc}[sections numbered]
+    \tableofcontents%[hideallsubsections]
+\end{frame}
+
+\input{pres.source.tex}
+
+%%% BIBLIOGRAPHY
+\begin{frame}[allowframebreaks]{Список литературы}
+    \printbibliography
+\end{frame}
+
+
+\begin{frame}{Основные результаты диссертации}
+    \begin{coloritemize}
+        \item Установлено естественное соответствие между булевыми правильными семействами и одностоковыми ориентациями графов булевых кубов ($\uso$-ориентации), а также между булевыми правильными семействами и булевыми сетями с наследственно единственной неподвижной точкой ($\hupf$-сети); установлено естественное соответствие между правильными семействами в логике произвольной значности и кликами в обобщенных графах Келлера.
+        \pause 
+        \item Доказано, что стабилизатором множества правильных семейств функций являются изометрии пространства Хэмминга (согласованные перенумерации и перекодировки); показано, что отображения, задаваемые с помощью правильных семейств булевых функций, всегда имеют четное число неподвижных точек; 
+        получена оценка на число правильных семейств булевых функций, предложены оценки доли треугольных семейств среди всех правильных семейств булевых функций.
+        \end{coloritemize}
+\end{frame}
+
+
+\begin{frame}{Основные результаты диссертации-2}
+    \begin{coloritemize}
+        \item Построены новые классы правильных семейств функций (рекурсивно треугольные, локально треугольные, сильно квадратичное семейство); получены оценки на число рекурсивно треугольных семейств; для некоторых правильных семейств булевых функций получены точные значения мощности образа отображений, задаваемых этими правильными семействами.
+        \pause
+        \item Предложен новый способ порождения квазигрупп на основе правильных семейств функций; доказан ряд утверждений о числе ассоциативных троек в порождаемых квазигруппах; предложен новый алгоритм шифрования, сохраняющего формат ($\fpe$-схема), основанный на квазигрупповых операциях.
+    \end{coloritemize}
+\end{frame}
+
+
+\begin{frame}{Публикации автора (личные)}
+    \begin{coloritemize}
+        \item \textquote{О соответствии между правильными семействами и реберными ориентациями булевых кубов}, Интеллектуальные системы. Теория и приложения, 24:1 (2020), 97--100.
+        \item \textquote{О взаимно однозначном соответствии между правильными семействами булевых функций и рёберными ориентациями булевых кубов}, ПДМ, 2020, 48,  16--21 (2020).
+        \item \textquote{О свойствах правильных семейств булевых функций}, Дискрет. матем., 33:1 (2021), 91--102.
+        \item ``Format-preserving encryption: a survey'', Матем. вопр. криптогр., 13:2 (2022),  133--153.
+        \item \textquote{Об одном квазигрупповом алгоритме шифрования, сохраняющего формат}, ПДМ. Приложение, 2023, 16,  102--104.
+        \item \textquote{Об индексе ассоциативности конечных квазигрупп}, Интеллектуальные системы. Теория и приложения, 28:3 (2024), 80--101. 
+    \end{coloritemize}
+\end{frame}
+
+
+\begin{frame}{Публикации автора (в соавторстве)}
+    \begin{coloritemize}
+        \item A. V. Galatenko, V. A. Nosov, A. E. Pankratiev, K. D. Tsaregorodtsev, ``Proper families of functions and their applications'', Матем. вопр. криптогр., 14:2 (2023),  43--58.
+        \item А. В. Галатенко, В. А. Носов, А. Е. Панкратьев, К. Д. Царегородцев, \textquote{О порождении n-квазигрупп с помощью правильных семейств функций}, Дискрет. матем., 35:1 (2023),  35--53.
+        \item A. V. Galatenko, A. E. Pankratiev, K. D. Tsaregorodtsev,``A Criterion of Properness for a Family of Functions'', Journal of Mathematical Sciences, 284:4 (2024), 451--459.
+    \end{coloritemize}
+\end{frame}
+
+\end{document}
+

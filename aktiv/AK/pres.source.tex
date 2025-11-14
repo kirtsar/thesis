@@ -1,0 +1,653 @@
+%!TEX root = ./pres.tex
+
+\section{Введение: квазигруппы в криптографии}
+
+
+\begin{frame}{Технический момент: используемые обозначения}
+    \begin{table}
+        \begin{center}
+            \begin{tabular}{|>{\columncolor{Gray}}c|c|}
+                \hline
+                $Q$ &квазигруппа с операцией $\circ$ \\
+                \hline 
+                $k$ & размер множества $Q$, $k = \lvert Q \rvert$, значность логики \\
+                \hline
+                $\EE_k$ & множество $\{0, \ldots, k-1 \}$ (обычно предполагаем $\EE_k = \ZZ_k$) \\
+                \hline
+                $\ff$ & семейство (набор) функций $\ff = (f_1, \ldots, f_n)$, \\
+                      & $\ff \colon Q^n \to Q^n$ \\
+                \hline 
+                $f_i$ & $i$-я функция семейства $\ff$ \\
+                \hline
+                $n$ & размер семейства \\
+                \hline
+                $Func(Q)$ & множество функций $f \colon Q \to Q$ \\
+                \hline 
+                $Perm(Q)$ & множество подстановок (биекций) на $Q$ \\
+                \hline
+            \end{tabular}
+        \end{center}
+    \end{table}
+\end{frame}
+
+
+\begin{frame}{ \textquote{Обычная} криптография}
+    \begin{coloritemize}
+        \item Часто используемые алгебраические структуры в криптографии: поля, кольца (коммутативные, ассоциативные, с единицей),  коммутативные группы, коды, решетки.
+        \pause 
+        \item В исследовательской литературе предлагаются к рассмотрению и более \textquote{экзотические} структуры: \textbf{некоммутативные} группы и алгебры (например, группы кос, алгебры матриц, алгебра кватернионов и так далее)~\footcite{myasnikov2011non, romankov, moldovyan}, \textbf{неассоциативные структуры}: квазигруппы, квазигрупповые кольца и т.д~\footcite{glukhov, artamonov18, markov2020nonassociative}.
+        \pause 
+        \item В докладе будет рассматриваться один способ построения квазигрупп на основе т.н. \textquote{правильных семейств функций}, а также свойства этих семейств самих по себе.
+    \end{coloritemize}
+\end{frame}
+
+
+\begin{frame}
+    \begin{myexample}{Квазигруппа}
+        Множество $Q$ с заданной на нём бинарной операцией
+        \(
+          \circ \colon Q \times Q \to Q, 
+        \)
+        со следующим свойством: для любых $a, b \in Q$ существуют единственные $x, y \in Q$, такие что:
+        \[
+          a \circ x = b, \qquad y \circ a = b.
+        \]
+        \footcitetext{belousov, keedwell}
+    \end{myexample}
+
+    \pause
+    Другими словами, операции \textbf{левого} $L_a$ и \textbf{правого} $R_a$ умножения (сдвиги)
+    \begin{gather*}
+        L_a \colon Q \to Q,\, L_a(x) = a \circ x, \; R_a \colon Q \to Q,\, R_a(y) = y \circ a,
+    \end{gather*}
+    являются биекциями на $Q$.
+    
+    \pause 
+    По сути = группа без ассоциативности и единицы, но \textbf{с сокращением} как слева, так и справа.
+\end{frame}
+
+
+\begin{frame}{Несколько примеров}
+    \begin{coloritemize}
+        \item $Q$~--- любая группа, например $Q = \ZZ_k$, $\circ = +$; 
+        \item $Q = \ZZ_k$, $\circ = -$ (не группа, т.к. $a - (b - c) \ne (a - b) - c$);
+        \item $(G, \cdot)$~--- группа, $\pi$, $\sigma$, $\tau$~--- подстановки на $G$, тогда можно рассмотреть \textbf{изотоп~\footcite{belousov, keedwell}}:
+        \[
+            x \circ y = \tau(\pi(x) \cdot \sigma(y)).
+        \]
+    \end{coloritemize}
+\end{frame}
+
+
+\begin{frame}{Латинский квадрат}
+    \begin{coloritemize}
+        \item Квадратная таблица размера $k \times k$, заполнена элементами множества $\{ 0, \ldots, k-1 \}$, каждое элемент появляется \textbf{только один раз} в каждом столбце и каждой строке таблицы.
+        \item Таблица умножения квазигруппы $Q = \{q_1, \ldots, q_k \}$ (на пересечении $i$-й строки и $j$-го столбца пишем $(q_i \circ q_j) \in Q$) является латинским квадратом.
+    \end{coloritemize}
+    \begin{columns}[T] % gather columns
+        \begin{column}{.2\textwidth}
+            \(
+                \begin{bmatrix}
+                    0 & 1 & 2 & 3 & 4 \\
+                    1 & 0 & 3 & 4 & 2 \\
+                    2 & 3 & 4 & 0 & 1 \\
+                    3 & 4 & 1 & 2 & 0 \\
+                    4 & 2 & 0 & 1 & 3 \\
+                \end{bmatrix}
+            \)
+        \end{column}%
+        \hfill%
+        \begin{column}{.4\textwidth}
+            \begin{figure}[h]
+                \centering 
+                \includegraphics[scale = 0.18]{fisher.jpg}
+            \end{figure}
+        \end{column}%
+    \end{columns}  
+\end{frame}
+
+
+\begin{frame}{Квазигруппы: симметричные механизмы}
+    \begin{coloritemize}
+        \item ГПСЧ~\footcite{dimitrova2004quasigroup, markovski2005unbiased}, блочные шифры~\footcite{inru}, поточные шифры~\footcite{edon80}, хэш-функции~\footcite{gligoroski2008edon, gligoroski2009family, EdonR, EdonRprime, mileva2009quasigroup}.
+        \pause 
+        \item Низкоресурсные (lightweight) хэш-функция и AEAD-алгоритм~\footcite{otte2019gage, gligoroski2019s}.
+        \pause 
+        \item Основным нелинейным компонентом в упомянутых алгоритмах является квазигрупповое умножение.
+        \pause 
+        \item Приложения в теории кодирования~\footcite{nechaev98, nechaev04, couselo2004loop, markov12, markov2020nonassociative}.
+    \end{coloritemize}
+\end{frame}
+
+
+\begin{frame}{Квазигруппы: асимметричные механизмы}
+    \begin{coloritemize}
+        \item Асимметричные схемы подписи~\footcite{gligoroski2008public, gligoroski2008multivariate, chen2010multivariate, gligoroski2011mqq}~--- аналоги пост-квантовых схем многомерной криптографии (multivariate cryptography).
+        \pause
+        \item Схемы~--- аналоги протокола Диффи-Хеллмана выработки общего ключа~\footcite{katyshev14, katyshev18}, гомоморфное шифрование~\footcite{gribov2010construction, gribov15, markov20}: используются \textbf{ППС/ПЛС-группоиды}, \textbf{луповые кольца} над медиальными квазигруппами (изотопы абелевых групп с коммутирующими автоморфизмами).
+        \pause 
+        \item Более подробно вопрос освещен в~\footcite{glukhov, artamonov18, shcherbacov2017elements, chauhan2021quasigroups}.
+    \end{coloritemize}
+\end{frame}
+
+
+\begin{frame}{Как задать квазигруппу?}
+    \begin{coloritemize}
+        \item В общем случае квазигруппа над множеством $Q$ задается таблицей умножения размера $\lvert Q \rvert \times \lvert Q \rvert$; это много.
+        \pause 
+        \item Случайная генерация (поиск + отсев) квазигрупп из некоторого узкого класса с компактно задаваемыми представителями~\footcite{gligoroski2008public, chen2010multivariate}.
+        \pause 
+        \item Итеративное построение из более \textquote{маленьких} (конструкции наподобие прямых произведений)~\footcite{gribovphd, EdonRprime}.
+        \pause 
+        \item Изотопы некоторых \textquote{хорошо изученных} групп (например, изотоп группы точек эллиптической кривой~\footcite{DH16}, модульное вычитание~\footcite{snavsel2009hash}).
+        \pause 
+        \item Функциональное задание квазигруппы: поговорим о нём подробнее.
+    \end{coloritemize}
+\end{frame}
+
+
+\begin{frame}{Функциональное задание квазигруппы}
+    \begin{coloritemize}
+        \item Можно перейти от табличного задания операции к функциональному~\footcite{nosov08}: 
+        \[
+            x \circ y = z \leftrightarrow z_i = f_i(x_1, \ldots, x_n, y_1, \ldots, y_n). 
+        \]
+        \pause 
+        \item Для краткости набор функций $\ff = (f_1, \ldots, f_n)$, $f_i \colon Q^n \to Q, \quad i = 1, \ldots, n$, будем называть семейством функций; семейство задает отображение множества $Q^n$ в себя.
+        \pause
+        \item Рассмотрим для простоты случай $Q_i = \{0, 1\}$: какие условия надо наложить на функции $f_i$, чтобы операция $x \circ y$ задавала \textbf{структуру квазигруппы} на $\{0, 1\}^n$?
+    \end{coloritemize}
+\end{frame}
+
+
+
+
+
+
+
+
+
+\section{Правильные семейства функций и квазигруппы}
+
+
+
+
+
+
+
+
+
+
+\begin{frame}{Правильные семейства булевых функций}
+    \begin{myexample}{Правильное семейство}
+        Семейство булевых функций $f_i \colon \EE_2^n \to \EE_2^n$ называется правильным, если для любых двух наборов $x \ne y$ найдется такая координата $i$, что $x_i \ne y_i$, но $f_i(x) = f_i(y)$.
+        \footcitetext{nosov98, nosov99}
+    \end{myexample}
+    \pause 
+
+    Правильные семейства можно задавать над логикой любой значности $k$~\footcite{nosov06}, над произвольными группами~\footcite{nosov06abel}; над прямыми произведениями других квазигрупп~\footcite{galatenko2020latin} и $d$-квазигрупп~\footcite{plaksina14}.
+\end{frame}
+
+
+\begin{frame}{Примеры правильных семейств}
+    \begin{coloritemize}
+        \item Константные семейства $f_i \equiv const_i$ являются правильными.
+        \pause 
+        \item Треугольные семейства являются правильными
+        \[
+            \begin{bmatrix}
+                f_1 \\
+                f_2 \\
+                % f_3 \\
+                \vdots \\
+                f_n 
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+                f_{1}( \, ) \\
+                f_{2}(x_{1}) \\
+                % f_{3}(x_{1}, x_{2}) \\
+                \vdots \\
+                f_{n}(x_{1}, \ldots, x_{n-1})
+            \end{bmatrix}.
+        \]
+        \pause 
+        \item Из определения правильности следует, что $f_i$ не зависит существенно от $x_i$.
+        \footcitetext{nosov98, nosov06abel}
+    \end{coloritemize}
+\end{frame}
+
+
+\begin{frame}
+    \begin{mypropos}{Класс квадратичных семейств}
+        Семейство $\ff$ является правильным для любого $n \ge 1$:
+        \[
+            \ff(x_1, \ldots, x_n) = 
+            \begin{bmatrix}
+                0 \\
+                x_1 \\
+                x_1 \oplus x_2 \\
+                \vdots \\
+                x_1 \oplus x_2 \oplus \ldots \oplus x_{n-1}
+                \end{bmatrix}
+                \bigoplus
+                \begin{bmatrix}
+                \bigoplus_{i < j, \; i, j \ne 1}^n \; x_i x_j \\
+                \bigoplus_{i < j, \; i, j \ne 2}^n \; x_i x_j \\
+                \bigoplus_{i < j, \; i, j \ne 3}^n \; x_i x_j \\
+                \vdots \\
+                \bigoplus_{i < j, \; i, j \ne n}^n \; x_i x_j \\
+            \end{bmatrix}.
+        \]
+    \end{mypropos}
+\end{frame}
+
+
+\begin{frame}{Число правильных булевых семейств $T(n)$}
+    \begin{center}
+        \begin{tabular}{|c|c|}
+            \hline
+            \rowcolor{Gray}
+            Размер $n$ & $T(n)$ \\
+            \hline
+            $n = 1$ & 2 \\
+            \hline
+            $n = 2$ & 12 \\
+            \hline
+            $n = 3$ & 744\\
+            \hline
+            $n = 4$ & 5541744 \\
+            \hline
+            $n = 5$ & 638560878292512 \\
+            \hline
+        \end{tabular}
+    \end{center}
+
+    \begin{mypropos}{Оценка на число булевых правильных семейств}
+        \[
+            n^{A \cdot 2^n} \le T(n) \le n^{B \cdot 2^n},
+        \]
+        где $A$, $B$~--- некоторые положительные константы.
+        \footcitetext{numberUSO}
+    \end{mypropos}
+\end{frame}
+
+
+\begin{frame}{Сложность распознавания правильности}
+    \begin{coloritemize}
+        \item В общем случае проверка правильности является сложной задачей: если семейство задано в форме КНФ, то задача проверки правильности coNP-полна~\footcite{nosov98}.
+        \pause 
+        \item В определенных случаях задача проверки правильности может быть упрощена, в частности, за счет вида графа существенной зависимости~\footcite{rykov14}.
+        \pause 
+        \item Алгоритм проверки правильности булева семейства требует порядка $\Theta(4^n)$ операций вычисления правильного семейства на двоичном наборе $x$ (проверка по определению правильности).
+    \end{coloritemize}
+\end{frame}
+
+
+\begin{frame}{Один способ задания квазигруппы}
+    \begin{coloritemize}
+        \item Есть несколько способов задать структуру квазигруппы на множестве $Q^n$ с помощью правильных семейств, в докладе рассмотрим одно из них.
+        \pause 
+        \item Пусть $\ff$, $\gf$~--- два правильных семейства функций размера $n$ над группой $(\GGG^n, +)$.
+        Для $\xx, \yy \in \GGG^n$ зададим операцию $\circ$ следующим образом:
+        \[
+            \xx \circ \yy = \xx + \ff(\xx) + \yy + \gf(\yy).
+        \]
+        \pause 
+        \item Операция $\circ$ является квазигрупповой.
+        \pause 
+        \item Это следует из более общей теоремы об эквивалентности свойства правильности семейства и регулярности некоторого семейства отображений.
+    \end{coloritemize}
+\end{frame}
+
+
+\begin{frame}{Криптографические свойства квазигрупп}
+    \begin{coloritemize}
+        \item Малое число ассоциативных троек, то есть троек элементов $(a, b, c) \in Q^3$
+        \[
+            (a \circ b) \circ c = a \circ (b \circ c).
+        \]
+        Количество таких троек называется индексом ассоциативности.
+        \pause 
+        \item Отсутствие подквазигрупп, т.е. подмножеств $Q' \subset Q$, которые замкнуты относительно умножения.
+        \pause 
+        \item Полиномиальная полнота квазигрупп (любое отображение $f \colon Q^n \to Q$ задается с помощью композиции констант и операции умножения).
+    \end{coloritemize}
+\end{frame}
+
+
+\begin{frame}{Индекс ассоциативности, теория}
+    \[
+        \xx \circ \yy = \xx + \ff(\xx) + \yy + \gf(\yy).
+    \]
+    \begin{mypropos}{Об индексах ассоциативности}
+        \begin{coloritemize}
+            \item Индексы ассоциативности квазигрупп, построенных по паре $(\ff, \gf)$ и по паре $(\gf, \ff)$, совпадают.
+            \item Для $G = \ZZ_2$ индексы ассоциативности квазигрупп, построенных по паре $(\ff, \gf)$ и по паре $(\ff \oplus \alpha, \gf \oplus \alpha)$, совпадают.
+            \item Для $G = \ZZ_2$ количество ассоциативных троек в квазигруппе, построенной по паре правильных булевых семейств $(\ff, \gf)$, четно.
+        \end{coloritemize}
+    \end{mypropos}
+\end{frame}
+
+
+
+\begin{frame}{Индекс ассоциативности, эксперимент $n=2$}
+    \[
+        (x, y) \to x \circ y = x + \ff(x) + y + \gf(y).
+    \]
+    \begin{center}
+        \begin{tabular}{|c|c|}
+            \hline
+            \rowcolor{Gray}
+            $a(Q)$ & Кол-во $Q$ \\
+            \hline
+            16 & 32 \\
+            \hline
+            32 & 96 \\
+            \hline
+            64 & 16 \\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{frame}
+
+
+\begin{frame}{Индекс ассоциативности, эксперимент $n=3$}
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            \rowcolor{Gray}
+            $a(Q)$ & Кол-во $Q$ & $a(Q)$ & Кол-во $Q$ \\
+            \hline
+            64 & 27648 & 144 & 3072\\
+            80 & 103424 & 160 & 84480 \\
+            88 & 18432 & 176 & 6144\\
+            96 & 82944 & 192 & 18432\\
+            104 & 33792 & 208 & 3072\\
+            112 & 21504 & 256 & 10368\\
+            120 & 21504 & 320 & 2304\\
+            128 & 116352 & 512 & 64\\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{frame}
+
+
+\begin{frame}{Индекс ассоциативности, эксперимент $n=4$}
+    \begin{columns}[T] % gather columns
+        \begin{column}{.49\textwidth}
+            \begin{figure}[h]
+                \centering 
+                \includegraphics[scale = 0.4]{histogram.png}
+            \end{figure}
+        \end{column}%
+        \hfill%
+        \begin{column}{.49\textwidth}
+            \begin{figure}[h]
+                \centering 
+                \includegraphics[scale = 0.4]{density.png}
+            \end{figure}
+        \end{column}%
+    \end{columns}  
+\end{frame}
+
+
+\begin{frame}{Полиномиальная полнота, теория}
+    \begin{coloritemize}
+        \item Пусть $\ff \colon Q^n \to Q^n$~--- правильное, $(Q, \circ)$~--- квазигруппа.
+        Введем обозначение $\sigma_{\ff} \in Perm(Q^n)$:
+        \[ 
+            \sigma_\ff(x) \colon x \to x \circ \ff(x),
+            \quad
+            \begin{bmatrix}
+                x_1 \\
+                \vdots \\
+                x_n
+            \end{bmatrix} 
+            \to 
+            \begin{bmatrix}
+                x_1 \circ f_1(x_1, \ldots, x_n) \\
+                \vdots \\
+                x_n \circ f_n(x_1, \ldots, x_n)
+            \end{bmatrix}
+        \]
+        \pause 
+        \item Для изучения полиномиальной полноты нужно, в частности, хорошо понимать свойства подстановок $\sigma_{\ff}$.
+    \end{coloritemize}
+\end{frame}
+
+
+\begin{frame}{Полиномиальная полнота, теория}
+    \[
+        \sigma_\ff(x) \colon x \to x \circ \ff(x),
+    \]
+    \begin{coloritemize}
+        \item Если $(Q, \circ)$~--- группа (т.е., операция $\circ$ ассоциативна), то множество \textquote{правильных подстановок} замкнуто относительно взятия обратного элемента (в случае, когда $Q$~--- группа).
+        \pause 
+        \item Множество \textquote{правильных подстановок} $\sprop$ \textbf{не является} подгруппой $Perm(Q^n)$.
+        \pause 
+        \item Замыкание $\sprop$ действует транзитивно на $Q^n$.
+        \pause 
+        \item При $Q = \EE_2$ замыкание $\sprop$ порождает все множество подстановок $Perm(\EE_2^n)$.
+        \pause 
+        \item У подстановки $\sigma_{\ff}(x) = x \oplus {\ff}(x)$ чётное число неподвижных точек.
+    \end{coloritemize}
+\end{frame}
+
+
+
+\begin{frame}{Полиномиальная полнота, эксперимент $n=2$}
+    \[
+        \xx, \yy \in \ZZ_2^n \quad \xx \circ \yy = \xx \oplus \ff(\xx) \oplus \yy \oplus \gf(\yy).
+    \]
+
+    \begin{center}
+        \begin{tabular}{|>{\columncolor{Gray}}c|c|c|}
+            \hline
+            \rowcolor{Gray}
+            Свойства & Афинная & Неаффинная \\
+            \hline
+            Не простая & 112 & 0 \\
+            \hline
+            Простая & 32 & \textbf{0} \\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{frame}
+
+
+\begin{frame}{Полиномиальная полнота, эксперимент $n=3$}
+    \[
+        \xx, \yy \in \ZZ_2^n \quad \xx \circ \yy = \xx \oplus \ff(\xx) \oplus \yy \oplus \gf(\yy).
+    \]
+
+    \begin{center}
+        \begin{tabular}{|>{\columncolor{Gray}}c|c|c|}
+            \hline
+            \rowcolor{Gray}
+            Свойства & Афинная & Неаффинная \\
+            \hline
+            Не простая & 30784 & 231936 \\
+            \hline
+            Простая & 9216 & \textbf{281600} \\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{frame}
+
+
+
+
+
+
+
+
+
+\section{Свойства правильных семейств функций}
+
+
+
+
+
+
+
+
+\begin{frame}
+    \begin{mypropos}{Преобразование сдвига}
+        \label{thm:shift}
+        Для любого $\alpha = (a_1, \ldots, a_n) \in Q^n$ определим преобразование сдвига:
+        \begin{gather*}
+            x \in Q^n \to L_{\alpha}(x) = (a_1 \circ x_1, \ldots, a_n \circ x_n), \\
+            x \in Q^n \to R_{\alpha}(x) = (x_1 \circ a_1, \ldots, x_n \circ a_n).
+        \end{gather*}
+        Если $\ff \colon Q^n \to Q^n$ правильное, то $T_{\alpha}(\ff(T_{\beta}(x)))$ также правильное, где $T \in \{L, R\}$, $\alpha, \beta \in Q^n$.
+    \end{mypropos}
+    Обобщение результата~\footcite{nosov06abel} для абелевых групп.
+\end{frame}
+
+
+\begin{frame}
+    \begin{mypropos}{Преобразование перекодировки}
+        \label{thm:reencoding}
+        Для любого набора $\Psi = (\psi_1, \ldots, \psi_n) \in Func(Q)^n$ определим преобразование перекодировки:
+        \[
+            x \in Q^n \to \Psi(x) = (\psi_1(x_1), \ldots, \psi_n(x_n)).
+        \]
+        Пусть $\Phi \in Func(Q)^n$, $\Psi \in Perm(Q)^n$.
+        Если $\ff(x) = (f_1(x), \ldots, f_n(x))$ правильное, то $\Phi(\ff(\Psi(x)))$ также правильное.
+        \footcitetext{galatenko21criterion}
+    \end{mypropos}
+    \pause
+    Если $\Phi, \Psi \in Perm(Q)^n$, то подобные преобразования будем называть преобразованиями перекодировки.
+    \pause
+    
+    Сдвиги являются частными случаями преобразования перекодировки.
+\end{frame}
+
+
+\begin{frame}
+    \begin{mypropos}{Согласованная перенумерация}
+        Пусть $\sigma \in Perm(n)$, определим преобразование согласованной перенумерации:
+        \begin{gather*}
+            \ff \to \sigma(\ff), \\
+            f_i(x_1, \ldots, x_n) \to 
+            f_{\sigma(i)}(x_{\sigma(1)}, \ldots, x_{\sigma(n)}).
+        \end{gather*}
+        Если $\ff(x)$~--- правильное, то $\sigma(\ff)$ также правильное.
+        \footcitetext{nosov06abel}
+    \end{mypropos}
+\end{frame}
+
+
+\begin{frame}
+    \begin{mypropos}{Проекция}
+        Подставим значение $a \in Q$ вместо переменной $x_i$ и исключим функцию $f_i$, $1 \le i \le n$.
+        \[
+            F'(x_1,\ldots,x_{i-1}, x_{i+1}, \ldots, x_n) = \proj^i_a(F) =
+            \begin{bmatrix}
+              f_1(x_1,\ldots,x_{i-1}, a, x_{i+1}, \ldots, x_n) \\
+              \vdots \\
+              f_{i-1}(x_1,\ldots,x_{i-1}, a, x_{i+1}, \ldots, x_n) \\
+              f_{i+1}(x_1,\ldots,x_{i-1}, a, x_{i+1}, \ldots, x_n) \\
+              \vdots \\
+              f_{n}(x_1,\ldots,x_{i-1}, a, x_{i+1}, \ldots, x_n) \\
+            \end{bmatrix}.
+        \]
+        Полученное семейство является правильным.
+        \footcitetext{galatenko2020latin}
+    \end{mypropos}
+\end{frame}
+
+
+\begin{frame}{Общий вид биекций, сохраняющих правильность}
+    Сдвиги, согласованные перенумерации, перекодировки~--- все эти преобразования:
+    \begin{coloritemize}
+        \item биективны,
+        \pause 
+        \item сохраняют правильность семейства,
+        \pause 
+        \item являются изометриями $\EE_k^n$ (в метрике Хэмминга).
+    \end{coloritemize}
+
+    \pause
+    Общая постановка задачи: пусть $\Phi$, $\Psi$~--- биекции на $Q^n$: $\Phi, \Psi \in Perm(Q^n)$.
+    Рассмотрим стабилизатор множества всех правильных семейств, заданных на $Q^n$:
+    \[
+        \{(\Phi, \Psi) \in Perm(Q^n) \mid \Phi(F(\Psi(x))) \text{ правильно для любого правильного } F \colon Q^n \to Q^n \}.  
+    \]
+        
+    \pause
+    Описать структуру этого множества.
+\end{frame}
+
+
+\begin{frame}{Общий вид биекций, сохраняющих правильность}
+    \begin{mypropos}{Стабилизатор правильных семейств}
+        Пусть семейства $\gf(\xx)$ вида $\gf(\xx) = \Phi(\ff(\Psi(\xx)))$ являются правильным для всех правильных семейств $\ff$, заданных на $\EE_k^n$, $\Phi$ и $\Psi$~--- биекции множества $\EE_k^n$.
+        Тогда $\Phi$ и $\Psi$ имеют вид 
+        \[
+            \Phi = \sigma \circ A, \Psi = \sigma \circ B, 
+        \]
+        где использованы следующие обозначения:
+        \begin{description}
+            \item[$\sigma \in \SSS_n$:] перенумерация координат вектора,
+            \item[$A, B \in \left( \SSS_{\EE_k} \right)^n$:] перекодировки вектора. 
+        \end{description}
+    \end{mypropos}
+\end{frame}
+
+
+\begin{frame}{Неподвижные точки правильного семейства}
+    \begin{mypropos}{Неподвижные точки}
+        Булево семейство $\ff$ является правильным тогда и только тогда, когда семейство $\ff$ и каждая из его проекций имеет единственную неподвижную точку.
+    \end{mypropos}
+    \pause 
+
+    Это свойство задает соответствие между правильными булевыми семействами и двумя другими объектами: $\uso$-ориентациями булевых кубов (используются в задачах оптимизации~\footcite{USOphd}) и $\hupf$-сетями (используются в задачах математической биологии~\footcite{thomas1991regulatory, richard2015fixed, ruet2015asynchronous, ruet2016local}).
+\end{frame}
+
+
+\begin{frame}{Неподвижные точки правильного семейства}
+    \begin{coloritemize}
+        \item Полученные соответствия позволяют перевести (с обобщением) часть результатов, полученных в контексте оптимизации или мат. биологии на язык правильных семейств: например, вероятностный алгоритм порождения правильных семейств с помощью процедуры MCMC~\footcite{galatenko21generation}, оценка на число булевых правильных семейств~\footcite{dm21}, новые классы правильных семейств.
+        \pause
+        \item В общем случае более общий критерий: семейство $\ff \colon \EE_k^n \to \EE_k^n$ является правильным тогда и только тогда, когда для любой перекодировки $\ff$ все её проекции имеют единственную неподвижную точку~\footcite{galatenko21criterion}.
+    \end{coloritemize}
+\end{frame}
+
+
+\begin{frame}{Характеризация через несамодвойственные проекции}
+    
+    Отображение $\ff \colon \EE_2^n \to \EE_2^k$ самодвойственно, если для любого набора $x \in \EE_2^n$ выполняется свойство $\ff(\overline{x}) = \overline{\ff(x)}$.
+
+    \pause 
+    \begin{mypropos}{О несамодвойственности проекций} 
+        Семейство $\ff$ булевых функций правильно тогда и только тогда, когда каждая из его проекций 
+        \[
+            \proj^{a_1, \ldots, a_k}_{i_1, \ldots, i_k}(\ff)
+        \] 
+        \textbf{не является} самодвойственным булевым отображением.
+    \end{mypropos}
+    
+    Этот результат позволяет снизить сложность проверки правильности с $\Theta(4^n)$ операций вычисления семейства в точке до $\Theta(3^n)$ операций.
+\end{frame}
+
+
+\begin{frame}{Кликовое представление правильных семейств}
+    \begin{coloritemize}
+        \item Правильные семейства находятся во взаимно-однозначном соответствии с кликами некоторым образом построенного графа (\textquote{обобщенный граф Келлера}).
+        \pause
+        \item Для $k=2$ перенос из теории $\mathsf{USO}$-ориентаций~\footcite{borzechowski2022universal}, для $k > 2$~--- авторское обобщение.
+        \pause
+        \item Обобщенный граф Келлера $G(k, n)$: $V = \EE_{k^2}^n$, 
+        \[
+            \{v, w\} \in E \leftrightarrow \exists i, \, 1 \le i \le n \colon v_i \equiv w_i \text{ mod } \; k, \; v_i \ne w_i.
+        \]
+        \pause
+        \item Графы примечательны тем, что в случае $k = 2$ некоторым образом кодируют неэквивалентные замощения пространства гиперкубами~\footcite{sikiric2007cube, mathew2013enumerating}.
+    \end{coloritemize}
+    \pause
+    \begin{mypropos}{Кликовое представление правильных семейств}
+        Каждой клике на $k^n$ вершинах в графе $G(k, n)$ можно поставить в биективное соответствие некоторое правильное семейство $\ff_n$ размера $n$ на $\EE_k^n$.
+    \end{mypropos}
+\end{frame}
